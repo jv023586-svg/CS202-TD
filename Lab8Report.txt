@@ -8,5 +8,19 @@ Lab 8 Report
       tests for the problem outlined above (2 pts each)
 
 Hours:
-3/23/2026    60 minutes: Initial meeting, brainstorming of ideas, created a Discord server for communication
+3/23/2026    60 minutes: Initial meeting, brainstorming of ideas, created a Discord server for communication, watched YouTube videos about GitHub
 3/24/2026    60 minutes: Created a GitHub Repository, ReadMe file, GitHub project, and Lab8.txt file
+                         Discussed data structures for use in the Lab. A great idea was for there to be a dequeue of the instances of the class of the enemies.
+
+Pros of using classes for this specific problem:
+
+Cons of using classes for this specific problem:
+
+Description of at least one data structure that would be useful:
+
+Why that data structure would be useful:
+
+Test Case / Unit Test 1:
+
+Test Case / Unit Test 2:
+
