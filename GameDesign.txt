@@ -1,0 +1,36 @@
+Game Design Document:
+
+The basis of this game is that you are a rover, a robotic planetary explorer on a mission:
+Find habitable planets that are suitable for human life.
+
+Your landing capsule, the one that transported you to the planet's surface, is home base.
+You're trying to explore the surface of the alien world that you've landed on.
+
+Alien insects start swarming from spawn points, holes in the ground or caves.
+For the purposes of Lab 8, there will only be one spawning point, and the enemies will move in a straight line toward the landing craft.
+Also, for the sake of time, there will be no rover, just the landing craft.
+This will esentially be a short tutorial level for a larger game that we may or may not develop in the future.
+
+Displayed text should instruct the player of the story and purpose of events.
+The landing craft has landed, and depleted its solar-powered batteries in doing so.
+At the beginning of the game, the capsule immediately deploys its solar panels in order to begin recharging.
+The sound of the landing and subsequent mechanical action of deploying the solar panels alerts nearby insectoid life.
+The insects burrow to the surface, and begin marching in a line toward the Capsule.
+The Capsule engages its defensive laser and begins engaging the insectoids as soon as they are in range.
+
+The player will have the ability to create one additional Defensive turret, immediately adjacent to the Lander.
+
+Win / Lose Conditions:
+Win: Full battery and Capsule not destroyed.
+Loss: Capsule is destroyed.
+The game will end when either the Capsule is destroyed by the insectoids or the batteries are recharged and the Capsule can lift off.
+The Capsule's single defensive laser will not fire fast enough to be able to destroy all of the incoming enemies before it is overcome.
+The player must choose to use some of the battery energy to deploy a small, supplementary defensive turret.
+This is the only way to defeat the game. If the player does not deploy a second turret, the game will end in a loss.
+
+Entities (these become classes): 
+- Capsule (Landing ship)
+- Enemies
+- Capsule's projectiles (Visual fx)
+- Enemy spawn point (Should be a visual marker on the map)
+- Defensive Turret
