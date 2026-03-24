@@ -10,7 +10,9 @@ Lab 8 Report
 Hours:
 3/23/2026    60 minutes: Initial meeting, brainstorming of ideas, created a Discord server for communication, watched YouTube videos about GitHub
 3/24/2026    60 minutes: Created a GitHub Repository, ReadMe file, GitHub project, and Lab8.txt file
-                         Discussed data structures for use in the Lab. A great idea was for there to be a dequeue of the instances of the class of the enemies.
+                         Discussed data structures for use in the Lab. 
+                         A great idea was for there to be a dequeue of the instances of the class of the enemies.
+                         Generated Game Design document, posted to GitHub
 
 Pros of using classes for this specific problem:
 
