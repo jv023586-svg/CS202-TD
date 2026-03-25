@@ -1,4 +1,6 @@
 Lab 8 Report
+Team Front Right
+Team Members: Jerry Valentin, Connor Cooper, and Eliana Nichols
 
 +8    Four hours tracked towards the final lab (2 pts each)
 +4    Pros and cons of using classes (OOP) for this specific idea/problem 
