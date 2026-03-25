@@ -17,13 +17,27 @@ Hours:
 
 Pros of using classes for this specific problem:
 
+Several of the game components (enemies, projectiles) we will need to have multiple instances of, so classes will allow us to create multiple objects that we can manipulate individually. 
+The capsule landing ship, enemy spawn point, and defensive turret will also be classes as it will allows to create individual methods to control the different game aspects of each. 
+In addition, because we have a team, dividing up the the different parts of the game into classes will help compartmentalize and collaborate on the project.
+
 Cons of using classes for this specific problem:
+
+So far, we will need 5 different classes (enemies, projectiles, capsule landing ship, enemy spawn point, and defensive turrent) for the different moving pieces of the game. It may be complicated to keep up with so many classes for the scope of this project. 
 
 Description of at least one data structure that would be useful:
 
+We think a queue will be useful for instances of our enemy class, as this will allow us to create increasingly more difficult enemies to fight. 
+
 Why that data structure would be useful:
+
+Because queues are first in first out, we can start with easier enemies at the beginning of the game and have harder enemies spawn and store later. 
 
 Test Case / Unit Test 1:
 
+
+
 Test Case / Unit Test 2:
+
+
 
