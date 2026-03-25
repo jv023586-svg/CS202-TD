@@ -13,6 +13,7 @@ Hours:
                          Discussed data structures for use in the Lab. 
                          A great idea was for there to be a dequeue of the instances of the class of the enemies.
                          Generated Game Design document, posted to GitHub
+3/25/2026    60 minutes: Created main.cpp and a src directory, 
 
 Pros of using classes for this specific problem:
 
