@@ -2,6 +2,9 @@ Lab 8 Report
 Team Front Right
 Team Members: Jerry Valentin, Connor Cooper, and Eliana Nichols
 
+Project overview: Tower defense game.
+Landing capsule and defense turret are the player's bases. These must be defended against oncoming enemy alien insects while the battery charges so the capsule can take off. 
+
 +8    Four hours tracked towards the final lab (2 pts each)
 +4    Pros and cons of using classes (OOP) for this specific idea/problem 
 +4    Describe at least one data structure we have covered that would be useful 
