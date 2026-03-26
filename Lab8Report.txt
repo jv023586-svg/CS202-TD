@@ -18,7 +18,9 @@ Hours:
                          Discussed data structures for use in the Lab. 
                          A great idea was for there to be a dequeue of the instances of the class of the enemies.
                          Generated Game Design document, posted to GitHub
-3/25/2026    60 minutes: Created main.cpp and a src directory, 
+3/25/2026    60 minutes: Created main.cpp and a src directory, created: Enemy.cpp, Enemy.h, Capsule.cpp, Capsule.h, Turret.cpp, Turret.h, Game.cpp and Game.h
+                         Updated main.cpp to push game window and basic logic to game.cpp. Updated Project dashboard relative to progress, including specific tasks.
+3/26/2026    60 minutes: Housekeeping day. Added code to all of the class files to make them valid and compileable. Ensured that all teammembers had git and Cmake installed on their local machine and that we are all able to clone the repo, pull, push and commit to the repo. In this way we can begin progressing individually toward the collaborative whole. Updated game.cpp so that the code to open the game window is therein contained. 
 
 Pros of using classes for this specific problem:
 
@@ -40,7 +42,24 @@ Why that data structure would be useful:
 
 Test Case / Unit Test 1:
 
-      Game window opens and closes.
+      Game window opens and closes. This requires a game window on a loop and detection for an Event, the closure of the window. See below:
+#include "Game.h"
+#include <SFML/Graphics.hpp>
+
+void Game::run() {
+    sf::RenderWindow window(sf::VideoMode({800, 600}), "Game");
+
+    while (window.isOpen()) {
+        while (const std::optional event = window.pollEvent()) {
+            if (event->is<sf::Event::Closed>()) {
+                window.close();
+            }
+        }
+
+        window.clear();
+        window.display();
+    }
+}
 
 Test Case / Unit Test 2:
 
