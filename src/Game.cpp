@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Capsule.h"
 #include <SFML/Graphics.hpp>
 
 void Game::run() {
@@ -10,8 +11,9 @@ void Game::run() {
                 window.close();
             }
         }
-
+        capsule.update();
         window.clear();
+        capsule.draw(window);
         window.display();
     }
 }
