@@ -21,7 +21,7 @@ Hours:
                          Generated Game Design document, posted to GitHub
 3/25/2026    60 minutes: Created main.cpp and a src directory, created: Enemy.cpp, Enemy.h, Capsule.cpp, Capsule.h, Turret.cpp, Turret.h, Game.cpp and Game.h
                          Updated main.cpp to push game window and basic logic to game.cpp. Updated Project dashboard relative to progress, including specific tasks.
-3/26/2026    60 minutes: Housekeeping day. Added code to all of the class files to make them valid and compileable. Ensured that all teammembers had git and Cmake
+3/26/2026   180 minutes: Housekeeping day. Added code to all of the class files to make them valid and compileable. Ensured that all teammembers had git and Cmake
                          installed on their local machine and that we are all able to clone the repo, pull, push and commit to the repo. In this way we can begin 
                          progressing individually toward the collaborative whole. Updated game.cpp so that the code to open the game window is therein contained. 
 
@@ -29,22 +29,23 @@ Pros of using classes for this specific problem:
 
       Several of the game components (enemies, projectiles) we will need to have multiple instances of, so classes will allow us to create multiple objects that we can
       manipulate individually. 
-      The capsule landing ship, enemy spawn point, and defensive turret will also be classes as it will allows to create individual methods to control the different
+      The capsule (landing ship), enemy spawn point, and defensive turret will also be classes as it will allow us to create individual methods to control the different
       game aspects of each. 
       In addition, because we have a team, dividing up the the different parts of the game into classes will help compartmentalize and collaborate on the project.
 
 Cons of using classes for this specific problem:
 
       So far, we will need 5 different classes (enemies, projectiles, capsule landing ship, enemy spawn point, and defensive turret) for the different moving pieces of
-      the game. It may be complicated to keep up with so many classes for the scope of this project. 
+      the game. However, it may well be complicated to keep up with so many classes for the scope of this project. 
 
 Description of at least one data structure that would be useful:
 
-      We think a queue will be useful for instances of our enemy class, as this will allow us to create increasingly more difficult enemies to fight. 
+      We think a queue will be useful for the organization and storage of instances of our enemy class.
 
 Why that data structure would be useful:
 
       Because queues are first in first out, we can start with easier enemies at the beginning of the game and have harder enemies spawn and store later. 
+      This will allow us to simulate that the tower is attacking the "nearest" enemy, first.
 
 Test Case / Unit Test 1:
 
@@ -69,5 +70,5 @@ void Game::run() {
 
 Test Case / Unit Test 2:
 
-      Sucessfully populate an enemy.
+      Sucessfully populate the Capsule on the screen. This will begin the win condition and serve as a test that Draw and Update are functioning correctly.
 
