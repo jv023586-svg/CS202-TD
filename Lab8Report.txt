@@ -3,14 +3,15 @@ Team Front Right
 Team Members: Jerry Valentin, Connor Cooper, and Eliana Nichols
 
 Project overview: Tower defense game.
-Landing capsule and defense turret are the player's bases. These must be defended against oncoming enemy alien insects while the battery charges so the capsule can take off. 
+Landing capsule and defense turret are the player's bases. These must be defended against oncoming enemy alien insects while the battery charges so the capsule can 
+take off. 
 
-+8    Four hours tracked towards the final lab (2 pts each)
-+4    Pros and cons of using classes (OOP) for this specific idea/problem 
-+4    Describe at least one data structure we have covered that would be useful 
-      and explain why.
-+4    Provides at a high level least two test cases/unit
-      tests for the problem outlined above (2 pts each)
+DONE      +8    Four hours tracked towards the final lab (2 pts each)
+DONE      +4    Pros and cons of using classes (OOP) for this specific idea/problem 
+DONE      +4    Describe at least one data structure we have covered that would be useful 
+                and explain why.
+DONE      +4    Provides at a high level least two test cases/unit
+                tests for the problem outlined above (2 pts each)
 
 Hours:
 3/23/2026    60 minutes: Initial meeting, brainstorming of ideas, created a Discord server for communication, watched YouTube videos about GitHub
@@ -20,17 +21,22 @@ Hours:
                          Generated Game Design document, posted to GitHub
 3/25/2026    60 minutes: Created main.cpp and a src directory, created: Enemy.cpp, Enemy.h, Capsule.cpp, Capsule.h, Turret.cpp, Turret.h, Game.cpp and Game.h
                          Updated main.cpp to push game window and basic logic to game.cpp. Updated Project dashboard relative to progress, including specific tasks.
-3/26/2026    60 minutes: Housekeeping day. Added code to all of the class files to make them valid and compileable. Ensured that all teammembers had git and Cmake installed on their local machine and that we are all able to clone the repo, pull, push and commit to the repo. In this way we can begin progressing individually toward the collaborative whole. Updated game.cpp so that the code to open the game window is therein contained. 
+3/26/2026    60 minutes: Housekeeping day. Added code to all of the class files to make them valid and compileable. Ensured that all teammembers had git and Cmake
+                         installed on their local machine and that we are all able to clone the repo, pull, push and commit to the repo. In this way we can begin 
+                         progressing individually toward the collaborative whole. Updated game.cpp so that the code to open the game window is therein contained. 
 
 Pros of using classes for this specific problem:
 
-      Several of the game components (enemies, projectiles) we will need to have multiple instances of, so classes will allow us to create multiple objects that we can manipulate individually. 
-      The capsule landing ship, enemy spawn point, and defensive turret will also be classes as it will allows to create individual methods to control the different game aspects of each. 
+      Several of the game components (enemies, projectiles) we will need to have multiple instances of, so classes will allow us to create multiple objects that we can
+      manipulate individually. 
+      The capsule landing ship, enemy spawn point, and defensive turret will also be classes as it will allows to create individual methods to control the different
+      game aspects of each. 
       In addition, because we have a team, dividing up the the different parts of the game into classes will help compartmentalize and collaborate on the project.
 
 Cons of using classes for this specific problem:
 
-      So far, we will need 5 different classes (enemies, projectiles, capsule landing ship, enemy spawn point, and defensive turret) for the different moving pieces of the game. It may be complicated to keep up with so many classes for the scope of this project. 
+      So far, we will need 5 different classes (enemies, projectiles, capsule landing ship, enemy spawn point, and defensive turret) for the different moving pieces of
+      the game. It may be complicated to keep up with so many classes for the scope of this project. 
 
 Description of at least one data structure that would be useful:
 
