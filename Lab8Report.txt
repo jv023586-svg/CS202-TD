@@ -17,7 +17,7 @@ Hours:
 3/23/2026    60 minutes: Initial meeting, brainstorming of ideas, created a Discord server for communication, watched YouTube videos about GitHub
 3/24/2026    60 minutes: Created a GitHub Repository, ReadMe file, GitHub project, and Lab8.txt file
                          Discussed data structures for use in the Lab. 
-                         A great idea was for there to be a dequeue of the instances of the class of the enemies.
+                         A great idea was for there to be a queue of the instances of the class of the enemies.
                          Generated Game Design document, posted to GitHub
 3/25/2026    60 minutes: Created main.cpp and a src directory, created: Enemy.cpp, Enemy.h, Capsule.cpp, Capsule.h, Turret.cpp, Turret.h, Game.cpp and Game.h
                          Updated main.cpp to push game window and basic logic to game.cpp. Updated Project dashboard relative to progress, including specific tasks.
@@ -77,3 +77,17 @@ Test Case / Unit Test 2:
 
       Sucessfully populate the Capsule on the screen. This will begin the win condition and serve as a test that Draw and Update are functioning correctly.
 
+Test Case / Unit Test 3:
+
+      Populate an enemy on the screen, print to screen or a enemylog.txt the contents of the queue. This will prove that the queue is populated and can be
+      used for targeting.
+
+Test Case / Unit Test 4:
+
+      Spawn a second enemy onto the screen, print to screen or a enemylog.txt, the contents of the queue. This will prove that the queue is functioning as 
+      intended, that the additional enemy is "behind" its predecessor. Spawn a third enemy and verify the queue updated, the spawned enemies are in the 
+      correct order as described above.
+
+Test Case / Unit Test 5:
+
+      Destroy an enemy and verify that the queue is updated. The first enemy added to the queue should be updated, reflecting proper FIFO organization.
