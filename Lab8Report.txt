@@ -53,6 +53,10 @@ Test Case / Unit Test 1:
 #include "Game.h"
 #include <SFML/Graphics.hpp>
 
+#include "Game.h"
+#include "Capsule.h"
+#include <SFML/Graphics.hpp>
+
 void Game::run() {
     sf::RenderWindow window(sf::VideoMode({800, 600}), "Game");
 
@@ -62,8 +66,9 @@ void Game::run() {
                 window.close();
             }
         }
-
+        capsule.update();
         window.clear();
+        capsule.draw(window);
         window.display();
     }
 }
