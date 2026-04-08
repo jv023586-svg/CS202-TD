@@ -3,8 +3,8 @@
 
 class Capsule {
 public:
-    Capsule();
-
-    void update();
-    void draw(sf::RenderWindow& window);
+    Capsule(); // Constructor
+    
+    void update(); // Updates the position of the capsule
+    void draw(sf::RenderWindow& window); // Draws the capsule to the screen
 };

@@ -1,7 +1,9 @@
 #include "Game.h"
 
 Game::Game()
-    : window(sf::VideoMode({800, 600}), "Game")
+    : window(sf::VideoMode({800, 600}), "Game"),
+    gameOver(false),
+    gameWon(false)
 {
 }
 
