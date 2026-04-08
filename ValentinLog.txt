@@ -1,1 +1,17 @@
 Jerry's log for the Final Lab
+
+Here is a rubric for the final lab due at the end of the semester per your request:
+
++5 uses at least one data structure covered in CS202
+
++3 contains appropriate comments
+
++3 Includes a readme that has the commands on how to run it.  This should be a condensed read me with exactly how to run your code including instructions on how to play/run your submission a few (2-3) sentences.  This will make it much easier for Vinni and Maggie to grade.
+
++18 each person tracks at least 6 hours and the submission and it must compile.  NOTE:  It does not have to compile on the lab systems, but if you do not do a project that works there the TAs will reach out to schedule a grading session during exam week.  If you are in a group of 2, the final submission must have code corresponding to at least one task on the work log submitted completed by you to receive any discretionary points.  The log can be a Google Doc/spreadsheet that you provide the link for or a simple text file called "log.txt" in the submission.  See above
+
++6 provides a small writeup (one per group/submission) that describes what went well, what went less well, what you may have learned and why you should get full discretionary points.  If you worked alone you also need to do this exercise.
+
++2 Provide brief and confidential comment on your individual Canvas entry for this assignment evaluating you and potential group members, esp. with respect to discretionary points.  If you perform the project solo this is optional and you will receive 8 points for the writeup
+
++8 at the discretion of the grader based on all of the above
