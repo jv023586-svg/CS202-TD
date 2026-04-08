@@ -16,6 +16,9 @@ Here is a rubric for the final lab due at the end of the semester per your reque
 
 +8 at the discretion of the grader based on all of the above
 
-4/6/2026 - Worked on UML diagrams for all of the classes.
-4/7/2026 - Completed all seven UML diagrams for the classes.
-4/8/2026 - Met with team members to collaborate, explain SFML, GitHub, UML Diagrams, CMake, repositories and more.
+4/6/2026 - 4 hours - Worked on UML diagrams for all of the classes.
+4/7/2026 - 6 hours - Completed all seven UML diagrams for the classes.
+4/8/2026 - 8 hours - Met with team members to collaborate, explain SFML, GitHub, UML Diagrams, CMake, repositories and more.
+                     Researched, assessed and developed a state diagram to help facilitate the transition between states in the game.
+                     Researched and began implementation of a simple finite state machine in C++. I chose to use an enum struct over 
+                     classes and polymorhpism. Ain't nobody got time for that.
