@@ -6,13 +6,6 @@ Project overview: Tower defense game.
 Landing capsule and defense turret are the player's bases. These must be defended against oncoming enemy alien insects while the battery charges so the capsule can 
 take off. 
 
-DONE      +8    Four hours tracked towards the final lab (2 pts each)
-DONE      +4    Pros and cons of using classes (OOP) for this specific idea/problem 
-DONE      +4    Describe at least one data structure we have covered that would be useful 
-                and explain why.
-DONE      +4    Provides at a high level least two test cases/unit
-                tests for the problem outlined above (2 pts each)
-
 Hours:
 3/23/2026    60 minutes: Initial meeting, brainstorming of ideas, created a Discord server for communication, watched YouTube videos about GitHub
 3/24/2026    60 minutes: Created a GitHub Repository, ReadMe file, GitHub project, and Lab8.txt file
