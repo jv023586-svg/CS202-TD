@@ -15,3 +15,7 @@ Here is a rubric for the final lab due at the end of the semester per your reque
 +2 Provide brief and confidential comment on your individual Canvas entry for this assignment evaluating you and potential group members, esp. with respect to discretionary points.  If you perform the project solo this is optional and you will receive 8 points for the writeup
 
 +8 at the discretion of the grader based on all of the above
+
+4/6/2026 - Worked on UML diagrams for all of the classes.
+4/7/2026 - Completed all seven UML diagrams for the classes.
+4/8/2026 - Met with team members to collaborate, explain SFML, GitHub, UML Diagrams, CMake, repositories and more.
