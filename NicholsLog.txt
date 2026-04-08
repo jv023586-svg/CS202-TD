@@ -12,3 +12,4 @@ Here is a rubric for the final lab due at the end of the semester per your reque
 Work Log:
   4/8/26  60 minutes Team meeting to discuss next steps and divide up tasks
                      Get git pull and sfml set up
+                     Start working on the Projectiles class: write .h and start skeleton for .cpp
