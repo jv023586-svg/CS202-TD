@@ -4,8 +4,8 @@
 
 Game::Game()
     : window(sf::VideoMode({800, 600}), "Game"),
-    currentState(GameState::LOADING),
-    debugText(font),
+    currentState(GameState::LOADING), // Initial state
+    debugText(font), 
     stateTimer(0.0f), // Example timer (useful for intro/loading screens)
     gameOver(false), // Game over flag
     gameWon(false) // Game won flag
