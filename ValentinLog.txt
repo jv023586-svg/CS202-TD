@@ -22,3 +22,5 @@ Here is a rubric for the final lab due at the end of the semester per your reque
                      Researched, assessed and developed a state diagram to help facilitate the transition between states in the game.
                      Researched and began implementation of a simple finite state machine in C++. I chose to use an enum struct over 
                      classes and polymorhpism. Ain't nobody got time for that.
+4/10/2026 - 10 hours - Group meeting. Reviewed GitHub operations, goals, timelines, and professional development.
+
