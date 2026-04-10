@@ -1,0 +1,46 @@
+#include "Projectiles.h"
+
+/*
+    // variables
+    sf::Vector2f position;
+    sf::Vector2f velocity;
+    float damage;
+    bool isActive;
+    Enemy* target;
+*/
+Projectile::Projectile()
+{
+    position = sf::Vector2f(0.f, 0.f);  // set position 0.f, 0.f is top left corner
+    velocity = sf::Vector2f(0.f, 0.f);  // set velocity, no current speed
+    damage = 0.f;                       // set damage
+    isActive = true;                    // set active state
+    target = NULL;                      // set target
+}
+
+void update(float dt)
+{
+// frame time
+// actual time dt is change in time
+
+// update position
+
+// update velocity
+
+// take damage
+
+// update/check alive state
+
+// target
+
+}
+
+void draw(window)
+{
+
+}
+
+bool isAlive()
+{
+
+}
+
