@@ -24,4 +24,7 @@ Here is a rubric for the final lab due at the end of the semester per your reque
                      classes and polymorhpism. Ain't nobody got time for that.
 4/10/2026 - 10 hours - Group meeting. Reviewed GitHub operations, goals, timelines, and professional development. Created simple 
                        pixel-based.png files for the five visible objects in the game.
-
+4/13/2026 - 8 hours - Brief group meeting after class. Discussed next steps. USED ChatGPT to create art for the backgrounds for the game. 
+                      Created art for the backgrounds and implemented them, no more black screens. Updated game.cpp extensively. 
+                      Added a great deal of game logic to facilitate transitioning between states. Still not the core/actual logic, but closer.
+                      I implemented an intro story to provide context, and got it scrolling, which was hard.
