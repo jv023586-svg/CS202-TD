@@ -1,6 +1,8 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <array>
+#include <string>
 #include "Capsule.h"
 // #include "Enemy.h"
 // #include "Turret.h"
@@ -23,6 +25,12 @@ private:
         PLAYING,
         WIN,
         LOSE
+    };
+    enum class BackgroundId {
+        LOADING,
+        MENU,
+        INTRO,
+        GAMEPLAY
     };
 
     GameState currentState;
@@ -48,6 +56,11 @@ private:
     void updatePlaying(float dt);
     void updateWin(float dt);
     void updateLose(float dt);
+    void resetIntroSequence();
+    void loadIntroTextFromFile();
+    void loadBackgroundTextures();
+    void drawBackgroundForState(GameState state);
+    BackgroundId backgroundForState(GameState state) const;
 
     void renderLoading();
     void renderMenu();
@@ -61,11 +74,20 @@ private:
     sf::RenderWindow window;
     sf::Font font;
     sf::Text debugText;
+    sf::Text introText;
+    std::string introTextContent;
 
     Capsule capsule;
 
     // Example timer (useful for intro/loading screens)
     float stateTimer;
+    float introTextY;
+    float introScrollSpeed;
+    float introFadeTopFraction;
+    float introFadeBottomFraction;
+    float introBackgroundFadeAlpha;
+    float introBackgroundFadeSeconds;
+    sf::RectangleShape introFadeOverlay;
     // std::vector<Enemy> enemies;
     // std::vector<Turret> turrets;
     // std::vector<Projectile> projectiles;
@@ -75,5 +97,7 @@ private:
     bool gameOver;
     bool gameWon;
 
-    
+    static constexpr std::size_t kBackgroundCount = 4u;
+    std::array<sf::Texture, kBackgroundCount> backgroundTextures;
+    std::array<bool, kBackgroundCount> backgroundLoaded;
 };
