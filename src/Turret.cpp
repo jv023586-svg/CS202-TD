@@ -21,7 +21,7 @@ Turret::Turret()
 }
 
 
-void Turret::update() 
+void Turret::update(float dt) 
 {
 
 }
@@ -38,15 +38,15 @@ void takeDamage(float amount)
 
 bool isAlive()
 {
-
+    return true; // place holder
 }
 
 bool isFullyCharged()
 {
-
+    return true; // place holder
 }
 
-void acquireTarget(queue)
+void acquireTarget(/* queue */)
 {
 
 }
