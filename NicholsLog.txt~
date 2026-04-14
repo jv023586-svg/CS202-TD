@@ -10,8 +10,11 @@ Here is a rubric for the final lab due at the end of the semester per your reque
 
 
 Work Log:
- Wed 4/8/26   120 minutes Team meeting to discuss next steps and divide up tasks
-                     Get git pull and sfml set up
-                     Start working on the Projectiles class: write .h and start skeleton for .cpp
- Fri 4/10/26   30 minutes Work on filling out the Projectiles class
- Tue 4/14/26    
+ Wed 4/8/26   120 minutes    Team meeting to discuss next steps and divide up tasks
+                             Get git pull and sfml set up
+                             Start working on the Projectiles class: write .h and start skeleton for .cpp
+
+ Fri 4/10/26   30 minutes    Work on filling out the Projectiles class
+
+ Tue 4/14/26   60 mintues    Finish filling out Projectiles class
+                             Start working on the Turret class: write .h and start skeleton for .cpp
