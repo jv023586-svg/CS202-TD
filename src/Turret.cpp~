@@ -1,10 +1,58 @@
 #include "Turret.h"
 
-Turret::Turret() {
+/*
+    // variables 
+    sf::Vector2f position;
+    float attackRange;
+    float damage;
+    float attackRate;
+    float attackCooldown;
+    float energy;
+    float maxEnergy;
+    float rechargeRate;
+    float health;
+    float maxHealth;
+    Enemy* target;
+*/
+
+Turret::Turret() 
+{
+
 }
 
-void Turret::update() {
+
+void Turret::update(float dt) 
+{
+
 }
 
-void Turret::draw(sf::RenderWindow& window) {
+void Turret::draw(sf::RenderWindow& window) 
+{
+
 }
+
+void takeDamage(float amount)
+{
+
+}
+
+bool isAlive()
+{
+    return;
+}
+
+bool isFullyCharged()
+{
+    return;
+}
+
+void acquireTarget(/* queue */)
+{
+
+}
+
+void attack()
+{
+
+}
+

@@ -11,7 +11,7 @@ class Turret {
         void takeDamage(float amount);
         bool isAlive();
         bool isFullyCharged();
-        void acquireTarget(queue);
+        void acquireTarget(/* queue */);
         void attack();
  
     private:
