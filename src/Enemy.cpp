@@ -16,7 +16,6 @@ Enemy::Enemy()
         std::cerr << "Failed to load enemy texture assets/textures/bloop.png\n";
     }
 
-    // Sets scale, texture, start position of enemy
     sprite.setTexture(texture);
     sprite.setPosition(position);
     sprite.setScale({0.5f, 0.5f});
@@ -24,9 +23,6 @@ Enemy::Enemy()
 
 void Enemy::update(float dt)
 {
-    // temporary test movement
-    position.x += speed * dt * 60.0f;
-    sprite.setPosition(position);
 }
 
 void Enemy::draw(sf::RenderWindow& window)
