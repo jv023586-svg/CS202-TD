@@ -28,3 +28,4 @@ cmake --build build
 - The executable is generated in the `build` folder on purpose.
 - CMake automatically copies `assets` next to the executable after each build.
 - Run the executable from the generated `build/bin/...` path shown above.
+- SFML is embedded into this repository and this feature may not be compatible with all Operating Systems. 
