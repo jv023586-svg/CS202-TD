@@ -99,7 +99,7 @@ void Turret::attack()
         return;
     }
 
-    // target->takeDamage(damage);
+    target->takeDamage(damage);
 
     // Reset cooldown 
    
