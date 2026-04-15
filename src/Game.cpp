@@ -1,4 +1,6 @@
 #include "Game.h"
+#include "Enemy.h"
+#include "Capsule.h"
 #include <algorithm>
 #include <cstdint>
 #include <fstream>

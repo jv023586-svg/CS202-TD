@@ -18,6 +18,7 @@ Capsule::Capsule()
     if (!texture.loadFromFile("assets/textures/capsule.png")) {
         std::cerr << "Failed to load capsule texture: assets/textures/capsule.png\n";
     } else {
+        sprite.setTexture(texture, true);
         const auto bounds = sprite.getLocalBounds();
         sprite.setOrigin({bounds.size.x * 0.5f, bounds.size.y * 0.5f});
         sprite.setPosition(position);
@@ -56,6 +57,7 @@ Capsule::Capsule(float health, float maxHealth, float energy, float maxEnergy, f
     if (!texture.loadFromFile("assets/textures/capsule.png")) {
         std::cerr << "Failed to load capsule texture: assets/textures/capsule.png\n";
     } else {
+        sprite.setTexture(texture, true);
         const auto bounds = sprite.getLocalBounds();
         sprite.setOrigin({bounds.size.x * 0.5f, bounds.size.y * 0.5f});
         sprite.setPosition(position);
