@@ -5,9 +5,9 @@ class Enemy {
 public:
     Enemy();
 
-    void update();
+    void update(float dt);
     void draw(sf::RenderWindow& window);
-
+    
     void takeDamage(int amount);
     bool isAlive() const;
     void attack();
@@ -22,4 +22,7 @@ private:
 
     sf::Vector2f position;
     sf::Vector2f target;
+
+    sf::Texture texture;
+    sf::Sprite sprite;
 };
