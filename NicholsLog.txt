@@ -18,3 +18,6 @@ Work Log:
 
  Tue 4/14/26   60 mintues    Finish filling out Projectiles class
                              Start working on the Turret class: write .h and start skeleton for .cpp
+
+ Wed 4/15/26   90 mintues    Team meeting to work on project and troubleshoot git hub and cmake issues
+                             Continue filling out Turret class
