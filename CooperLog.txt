@@ -3,3 +3,9 @@
 
 4/10/2026
 +1 Hour: Developing Enemy.h
+
+4/14/2026
++2 Hours: Implementing Enemy.cpp bare bones
+
+4/15/2026
++2 Hours: Fixing Enemy.cpp so it appears during game state
