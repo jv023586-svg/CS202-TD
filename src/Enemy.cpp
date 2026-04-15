@@ -10,14 +10,14 @@ Enemy::Enemy()
       speed(1.0f),
       position(0.0f, 0.0f),
       target(0.0f, 0.0f),
-      sprite.setTexture(texture)
+      sprite(texture)
 {
-    if (!texture.loadFromFile("assets/textures/bloop.png"))
+    if (!texture.loadFromFile("assets/textures/enemy.png"))
     {
-        std::cerr << "Failed to load enemy texture assets/textures/bloop.png\n";
+        std::cerr << "Failed to load enemy texture assets/textures/enemy.png\n";
     }
 
-   
+    sprite.setTexture(texture, true);
     sprite.setPosition(position);
     sprite.setScale({0.5f, 0.5f});
 }
