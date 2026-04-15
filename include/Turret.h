@@ -5,6 +5,10 @@
 class Turret {
     public:
         Turret();
+        Turret(float health, float maxHealth, float energy, float maxEnergy, 
+                       float rechargeRate, float attackCooldown, float attackRate, 
+                       float attackRange, float damage, sf::Vector2f position, 
+                       Enemy* target);
 
         void update(float dt);
         void draw(sf::RenderWindow& window);
