@@ -304,7 +304,7 @@ void Game::updateTutorial(float dt) { // Update the tutorial
 }
 
 void Game::renderTutorial() { // Render the tutorial
-    capsule.setScale({0.1f, 0.1f}); // Set the scale of the capsule sprite to 0.1f
+    
     capsule.draw(window); // Draw the capsule
     debugText.setString("TUTORIAL\nPress SPACE to continue"); // Set the string of the debug text to the tutorial message    
     window.draw(debugText);
@@ -329,7 +329,7 @@ void Game::updatePlaying(float dt) { // Update the playing
 }
 
 void Game::renderPlaying() { // Render the playing  
-    capsule.setScale({0.1f, 0.1f}); // Set the scale of the capsule sprite to 0.1f
+   // capsule.setScale({0.1f, 0.1f}); // Set the scale of the capsule sprite to 0.1f
     capsule.draw(window);
     debugText.setString("PLAYING\nPress W = WIN, L = LOSE"); // Set the string of the debug text to the playing message    
     window.draw(debugText); // Draw the debug text

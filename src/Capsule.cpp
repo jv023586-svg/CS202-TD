@@ -19,10 +19,15 @@ Capsule::Capsule()
         std::cerr << "Failed to load capsule texture: assets/textures/capsule.png\n";
     } else {
         sprite.setTexture(texture, true);
-        const auto bounds = sprite.getLocalBounds();
-        sprite.setOrigin({bounds.size.x * 0.5f, bounds.size.y * 0.5f});
-        sprite.setPosition(position);
+        const auto bounds = sprite.getLocalBounds(); // Get the local bounds of the capsule sprite
+        sprite.setOrigin({bounds.size.x * 0.5f, bounds.size.y * 0.5f}); // Set the origin of the capsule sprite to the center of the sprite
+        sprite.setPosition(position); // Set the position of the capsule sprite to the position of the capsule
         sprite.setScale({0.3f, 0.3f}); // Set the scale of the capsule sprite to 0.3f
+        capsuleRectangle = sf::RectangleShape(sf::Vector2f(bounds.size.x, bounds.size.y)); // Create a rectangle shape of the capsule with the size of the capsule sprite
+        capsuleRectangle.setPosition(position); // Set the position of the capsule rectangle to the position of the capsule
+        capsuleRectangle.setFillColor(sf::Color::Transparent); // Set the fill color of the capsule rectangle to transparent
+        capsuleRectangle.setOutlineColor(sf::Color::Red); // Set the outline color of the capsule rectangle to red
+        capsuleRectangle.setOutlineThickness(1.f); // Set the outline thickness of the capsule rectangle to 1 pixel
     }
 }
 
@@ -54,15 +59,19 @@ Capsule::Capsule(float health, float maxHealth, float energy, float maxEnergy, f
     this->damage = damage;
     this->position = position;
     this->target = target;
-
     if (!texture.loadFromFile("assets/textures/capsule.png")) {
         std::cerr << "Failed to load capsule texture: assets/textures/capsule.png\n";
     } else {
         sprite.setTexture(texture, true);
-        const auto bounds = sprite.getLocalBounds();
-        sprite.setOrigin({bounds.size.x * 0.5f, bounds.size.y * 0.5f});
-        sprite.setPosition(position);
-        sprite.setScale({0.3f, 0.3f}); // Set the scale of the capsule sprite to 0.3f
+        const auto bounds = sprite.getLocalBounds(); // Get the local bounds of the capsule sprite
+        sprite.setOrigin({bounds.size.x * 0.5f, bounds.size.y * 0.5f}); // Set the origin of the capsule sprite to the center of the sprite
+        sprite.setPosition(position); // Set the position of the capsule sprite to the position of the capsule
+        sprite.setScale({0.3f, 0.3f}); // Set the scale of the capsule sprite to 0.3f        
+        capsuleRectangle = sf::RectangleShape(sf::Vector2f(bounds.size.x, bounds.size.y)); // Create a rectangle shape of the capsule with the size of the capsule sprite
+        capsuleRectangle.setPosition(position); // Set the position of the capsule rectangle to the position of the capsule
+        capsuleRectangle.setFillColor(sf::Color::Transparent); // Set the fill color of the capsule rectangle to transparent
+        capsuleRectangle.setOutlineColor(sf::Color::Red); // Set the outline color of the capsule rectangle to red
+        capsuleRectangle.setOutlineThickness(1.f); // Set the outline thickness of the capsule rectangle to 1 pixel
     }
 }
 
@@ -73,6 +82,7 @@ void Capsule::draw(sf::RenderWindow& window) {
 void Capsule::setPosition(const sf::Vector2f& newPosition) {
     position = newPosition;
     sprite.setPosition(position);
+    capsuleRectangle.setPosition(position);
 }
 
 void Capsule::setScale(const sf::Vector2f& newScale) {

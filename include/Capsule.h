@@ -10,7 +10,6 @@ public:
     void update(float dt); // Updates the position of the capsule
     void draw(sf::RenderWindow& window); // Draws the capsule to the screen
     void setPosition(const sf::Vector2f& newPosition); // Sets position and sprite position
-    /// Places the sprite near the bottom-left, respecting centered origin and window size.
     void setAnchorBottomLeft(const sf::Vector2u& windowSize, float margin = 48.f);
     void setScale(const sf::Vector2f& newScale); // Sets the scale of the capsule sprite
     void takeDamage(float damage); // Takes damage from an enemy
@@ -28,8 +27,10 @@ private:
     float attackRate; // Rate at which the capsule attacks
     float attackRange; // Range of the capsule's attack
     float damage; // Damage of the capsule's attack
+    float capsuleRectangle; // Rectangle of the capsule, mostly for hitbox detection
     sf::Vector2f position; // Position of the capsule
     Enemy* target; // Target of the capsule's attack
     sf::Texture texture; // Capsule texture
     sf::Sprite sprite; // Capsule sprite
+    sf::RectangleShape capsuleRectangle; // Rectangle shape of the capsule, mostly for hitbox detection
 };
