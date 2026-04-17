@@ -11,7 +11,7 @@ Capsule::Capsule()
       attackRate(1.f), // rate at which the capsule attacks
       attackRange(120.f), // 120 pixels range of the capsule's attack
       damage(10.f), // damage of the capsule's attack
-      position({0.f, 1000.f}), // position of the capsule
+      position({200.f, 750.f}), // position of the capsule
       target(nullptr), // target of the capsule's attack
       texture(),
       sprite(texture) {
@@ -73,6 +73,10 @@ void Capsule::draw(sf::RenderWindow& window) {
 void Capsule::setPosition(const sf::Vector2f& newPosition) {
     position = newPosition;
     sprite.setPosition(position);
+}
+
+void Capsule::setScale(const sf::Vector2f& newScale) {
+    sprite.setScale(newScale);
 }
 
 void Capsule::setAnchorBottomLeft(const sf::Vector2u& windowSize, float margin) {

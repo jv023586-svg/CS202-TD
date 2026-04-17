@@ -12,7 +12,7 @@ public:
     void setPosition(const sf::Vector2f& newPosition); // Sets position and sprite position
     /// Places the sprite near the bottom-left, respecting centered origin and window size.
     void setAnchorBottomLeft(const sf::Vector2u& windowSize, float margin = 48.f);
-
+    void setScale(const sf::Vector2f& newScale); // Sets the scale of the capsule sprite
     void takeDamage(float damage); // Takes damage from an enemy
     bool isFullyCharged() const; // Checks if the capsule is fully charged
     void attack(); // Attacks an enemy
