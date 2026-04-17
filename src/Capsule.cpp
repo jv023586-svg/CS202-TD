@@ -11,7 +11,7 @@ Capsule::Capsule()
       attackRate(1.f), // rate at which the capsule attacks
       attackRange(120.f), // 120 pixels range of the capsule's attack
       damage(10.f), // damage of the capsule's attack
-      position({0.f, 0.f}), // position of the capsule
+      position({0.f, 1000.f}), // position of the capsule
       target(nullptr), // target of the capsule's attack
       texture(),
       sprite(texture) {
@@ -22,6 +22,7 @@ Capsule::Capsule()
         const auto bounds = sprite.getLocalBounds();
         sprite.setOrigin({bounds.size.x * 0.5f, bounds.size.y * 0.5f});
         sprite.setPosition(position);
+        sprite.setScale({0.3f, 0.3f}); // Set the scale of the capsule sprite to 0.3f
     }
 }
 
@@ -61,6 +62,7 @@ Capsule::Capsule(float health, float maxHealth, float energy, float maxEnergy, f
         const auto bounds = sprite.getLocalBounds();
         sprite.setOrigin({bounds.size.x * 0.5f, bounds.size.y * 0.5f});
         sprite.setPosition(position);
+        sprite.setScale({0.3f, 0.3f}); // Set the scale of the capsule sprite to 0.3f
     }
 }
 
