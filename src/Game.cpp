@@ -294,6 +294,9 @@ void Game::processTutorialEvents(const sf::Event& event) {
             if (keyPressed->scancode == sf::Keyboard::Scancode::Space) {
                 currentState = GameState::PLAYING;
                 stateTimer = 0.f;
+
+                enemies.clear();
+                enemies.emplace_back();
             }
         }
     }
@@ -324,8 +327,11 @@ void Game::processPlayingEvents(const sf::Event& event) {
     }
 }
 
+// updates every enemy on screen
 void Game::updatePlaying(float dt) { // Update the playing
-    // THIS is where your real game logic will go
+    for (auto& enemy : enemies) {
+        enemy.update(dt);
+    }
 }
 
 void Game::renderPlaying() { // Render the playing  
@@ -333,6 +339,11 @@ void Game::renderPlaying() { // Render the playing
     capsule.draw(window);
     debugText.setString("PLAYING\nPress W = WIN, L = LOSE"); // Set the string of the debug text to the playing message    
     window.draw(debugText); // Draw the debug text
+
+    for (auto& enemy : enemies) {
+        enemy.draw(window);
+    }
+    
 }
 
 // ------- WIN -------
