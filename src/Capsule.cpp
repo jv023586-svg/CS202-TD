@@ -18,17 +18,24 @@ Capsule::Capsule()
     if (!texture.loadFromFile("assets/textures/capsule.png")) {
         std::cerr << "Failed to load capsule texture: assets/textures/capsule.png\n";
     } else {
-        sprite.setTexture(texture, true);
-        const auto bounds = sprite.getLocalBounds(); // Get the local bounds of the capsule sprite
-        sprite.setOrigin({bounds.size.x * 0.5f, bounds.size.y * 0.5f}); // Set the origin of the capsule sprite to the center of the sprite
-        sprite.setPosition(position); // Set the position of the capsule sprite to the position of the capsule
-        sprite.setScale({0.3f, 0.3f}); // Set the scale of the capsule sprite to 0.3f
-        capsuleRectangle = sf::RectangleShape(sf::Vector2f(bounds.size.x, bounds.size.y)); // Create a rectangle shape of the capsule with the size of the capsule sprite
-        capsuleRectangle.setPosition(position); // Set the position of the capsule rectangle to the position of the capsule
-        capsuleRectangle.setFillColor(sf::Color::Transparent); // Set the fill color of the capsule rectangle to transparent
-        capsuleRectangle.setOutlineColor(sf::Color::Red); // Set the outline color of the capsule rectangle to red
-        capsuleRectangle.setOutlineThickness(1.f); // Set the outline thickness of the capsule rectangle to 1 pixel
+        syncDrawablesAfterTextureLoad();
     }
+}
+
+void Capsule::syncDrawablesAfterTextureLoad() {
+    sprite.setTexture(texture, true);
+    const auto bounds = sprite.getLocalBounds();
+    const float hx = bounds.size.x * 0.5f;
+    const float hy = bounds.size.y * 0.5f;
+    sprite.setOrigin({hx, hy});
+    sprite.setPosition(position);
+    capsuleHitbox.setSize({bounds.size.x, bounds.size.y});
+    capsuleHitbox.setOrigin({hx, hy});
+    capsuleHitbox.setPosition(position);
+    capsuleHitbox.setFillColor(sf::Color::Transparent);
+    capsuleHitbox.setOutlineColor(sf::Color::Red);
+    capsuleHitbox.setOutlineThickness(10.f);
+    setVisualScale(visualScale);
 }
 
 void Capsule::update(float dt) { // Updates the position of the capsule
@@ -59,41 +66,27 @@ Capsule::Capsule(float health, float maxHealth, float energy, float maxEnergy, f
     this->damage = damage;
     this->position = position;
     this->target = target;
+
     if (!texture.loadFromFile("assets/textures/capsule.png")) {
         std::cerr << "Failed to load capsule texture: assets/textures/capsule.png\n";
     } else {
-        sprite.setTexture(texture, true);
-        const auto bounds = sprite.getLocalBounds(); // Get the local bounds of the capsule sprite
-        sprite.setOrigin({bounds.size.x * 0.5f, bounds.size.y * 0.5f}); // Set the origin of the capsule sprite to the center of the sprite
-        sprite.setPosition(position); // Set the position of the capsule sprite to the position of the capsule
-        sprite.setScale({0.3f, 0.3f}); // Set the scale of the capsule sprite to 0.3f        
-        capsuleRectangle = sf::RectangleShape(sf::Vector2f(bounds.size.x, bounds.size.y)); // Create a rectangle shape of the capsule with the size of the capsule sprite
-        capsuleRectangle.setPosition(position); // Set the position of the capsule rectangle to the position of the capsule
-        capsuleRectangle.setFillColor(sf::Color::Transparent); // Set the fill color of the capsule rectangle to transparent
-        capsuleRectangle.setOutlineColor(sf::Color::Red); // Set the outline color of the capsule rectangle to red
-        capsuleRectangle.setOutlineThickness(1.f); // Set the outline thickness of the capsule rectangle to 1 pixel
+        syncDrawablesAfterTextureLoad();
     }
 }
 
 void Capsule::draw(sf::RenderWindow& window) {
     window.draw(sprite);
+    window.draw(capsuleHitbox);
 }
 
 void Capsule::setPosition(const sf::Vector2f& newPosition) {
     position = newPosition;
     sprite.setPosition(position);
-    capsuleRectangle.setPosition(position);
+    capsuleHitbox.setPosition(position);
 }
 
-void Capsule::setScale(const sf::Vector2f& newScale) {
-    sprite.setScale(newScale);
-}
-
-void Capsule::setAnchorBottomLeft(const sf::Vector2u& windowSize, float margin) {
-    const auto bounds = sprite.getLocalBounds();
-    const float halfW = bounds.size.x * 0.5f;
-    const float halfH = bounds.size.y * 0.5f;
-    const float x = margin + halfW;
-    const float y = static_cast<float>(windowSize.y) - margin - halfH;
-    setPosition({x, y});
+void Capsule::setVisualScale(const sf::Vector2f& newScale) {
+    visualScale = newScale;
+    sprite.setScale(visualScale);
+    capsuleHitbox.setScale(visualScale);
 }
