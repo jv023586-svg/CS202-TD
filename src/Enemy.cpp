@@ -13,7 +13,7 @@ Enemy::Enemy()
       target(0.0f, 0.0f),
       sprite(texture)
 {
-    if (!texture.loadFromFile("C:/Users/profj/Documents/202FinalPart2/assets/textures/enemy.png")) {
+    if (!texture.loadFromFile("assets/textures/enemy.png")) {
         std::cerr << "Failed to load enemy texture assets/textures/enemy.png\n";
     }
 
