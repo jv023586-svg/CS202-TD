@@ -20,6 +20,7 @@ peek()
 delete()?
 isEmpty
 Node struct
+Sort() or Merge sort
 
 BEGIN
 Capsule should create an instance of the Target Queue
@@ -35,9 +36,4 @@ If TargetQueue == Last
   If the player selects TargetPriority Last
     Capsule should sort the enemies in the Queue by Highest Spawn Index to Lowest SpawnIndex.
 
-If TargetQueue == LowestHP
-  If the player selects TargetPriority LowestHP
-    Capsule should sort the enemies in the queue by largest health to smallest health.
-
-If TargetQueue == HighestHP
 
