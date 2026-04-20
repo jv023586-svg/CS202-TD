@@ -23,8 +23,7 @@ Node struct
 Sort() or Merge sort
 
 BEGIN
-Capsule should create two instances of the Target Queue: First and Last
-
+Capsule should create an instance of the TargetQueue.
 
 EACH FRAME
 Capsule should check for all enemies in range and check if they are already in the linked list by checking the spawnIndexValue. If the enemy is not in the linked list, push() the enemy onto the queue.
