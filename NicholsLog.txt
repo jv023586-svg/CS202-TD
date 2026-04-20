@@ -21,3 +21,5 @@ Work Log:
 
  Wed 4/15/26   90 mintues    Team meeting to work on project and troubleshoot git hub and cmake issues
                              Continue filling out Turret class
+
+ Mon 4/20/26   90 minutes    Team meeting to discuss queue implementation, develop game plan for queue, and progress update
