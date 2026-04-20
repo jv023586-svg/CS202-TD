@@ -10,7 +10,10 @@ LowestHP
 HighestHP
 
 BEGIN
-Capsule should check for all enemies in range and add them to the TargetQueue.
+Capsule should create an instance of the Target Queue
+
+EACH FRAME
+Capsule should check for all enemies in range and check if they are already in the linked list by checking the spawnIndexValue. If the enemy is not in the linked list, push() the enemy onto the queue.
 
 If TargetQueue ==  First
   If the player selects TargetPriority First
