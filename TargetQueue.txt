@@ -23,17 +23,18 @@ Node struct
 Sort() or Merge sort
 
 BEGIN
-Capsule should create an instance of the Target Queue
+Capsule should create two instances of the Target Queue: First and Last
+
 
 EACH FRAME
 Capsule should check for all enemies in range and check if they are already in the linked list by checking the spawnIndexValue. If the enemy is not in the linked list, push() the enemy onto the queue.
 
 If TargetQueue ==  First
   If the player selects TargetPriority First
-    Capsule should sort the enemies in the Queue by lowest Spawn Index to highest SpawnIndex.
+    TargetQueue should sort the enemies in the Queue by lowest Spawn Index to highest SpawnIndex.
+    When Capsule asks for Target, it should peek().
 
 If TargetQueue == Last
   If the player selects TargetPriority Last
-    Capsule should sort the enemies in the Queue by Highest Spawn Index to Lowest SpawnIndex.
-
-
+    TargetQueue should sort the enemies in the Queue by Highest Spawn Index to Lowest SpawnIndex.
+    When Capsule asks for Target, it should peek().
