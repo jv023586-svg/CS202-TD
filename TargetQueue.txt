@@ -37,3 +37,11 @@ If TargetQueue == Last
   If the player selects TargetPriority Last
     TargetQueue should sort the enemies in the Queue by Highest Spawn Index to Lowest SpawnIndex.
     When Capsule asks for Target, it should peek().
+
+
+We spent a couple of hours working through what our best data structure would be given the constraints of the game. We came to the conclusion that heaps would be the best and the easiest, but we don't think we are allowed to use heaps.
+
+We are proceeding with a doubly linked list because we want to be able to traverse in more than one way.
+
+It is worth noting that there is a vector of enemies that is built by the spawner and can be referenced for adding Enemies to the doubly linked List IF the enemy is in range. Each enemy also has a Unique identifier = spawnIndex.
+The FIRST target priority can be made by traversing the DLL in order, and the Last priority cal be made by traversing the DLL in reverse.
