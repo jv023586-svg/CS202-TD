@@ -9,6 +9,18 @@ Last
 LowestHP
 HighestHP
 
+FUNCTIONS
+Constructor
+default constructor
+copy assignment operator
+destructor
+push()
+pop()
+peek()
+delete()?
+isEmpty
+Node struct
+
 BEGIN
 Capsule should create an instance of the Target Queue
 
