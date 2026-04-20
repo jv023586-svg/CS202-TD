@@ -6,10 +6,11 @@
 #include <string>
 #include "Capsule.h"
 #include "Enemy.h"
-// #include "Turret.h"
-// #include "Projectile.h"
+#include "Turret.h"
+#include "TargetPriority.h"
 // #include "TargetQueue.h"
 #include "Spawner.h"
+#include "Projectiles.h"
 
 class Game {
 public:
@@ -27,13 +28,14 @@ private:
         WIN,
         LOSE
     };
+    // ------- BACKGROUND ENUM -------
     enum class BackgroundId {
         LOADING,
         MENU,
         INTRO,
         GAMEPLAY
     };
-
+    // ------- CURRENT STATE -------
     GameState currentState;
     
     // ------- CORE LOOP -------
@@ -75,10 +77,15 @@ private:
     sf::RenderWindow window;
     sf::Font font;
     sf::Text debugText;
+    sf::Text capsuleHealthText;
+    sf::Text capsuleEnergyText;
     sf::Text introText;
     std::string introTextContent;
 
     Capsule capsule;
+    Turret turret;
+    TargetPriority targetPriority{TargetPriority::Random};
+    int nextSpawnIndex{0};
 
     // Example timer (useful for intro/loading screens)
     float stateTimer;
@@ -90,8 +97,7 @@ private:
     float introBackgroundFadeSeconds;
     sf::RectangleShape introFadeOverlay;
     std::vector<Enemy> enemies;
-    // std::vector<Turret> turrets;
-    // std::vector<Projectile> projectiles;
+    std::vector<Projectile> projectiles;
     // TargetQueue targetQueue;
     Spawner spawner;
 
