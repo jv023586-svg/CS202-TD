@@ -1,0 +1,21 @@
+Documentation for Target Queue
+
+Goal: Create a Priority Queue using  a linked list.
+
+The TargetQueue should be able to reference the spawnIndex of an enemy or calculate and use a different metric in order to sort the enemies into the correct order.
+
+First
+Last
+LowestHP
+HighestHP
+
+
+If TargetQueue ==  First
+  If the player selects TargetPriority First
+    Capsule should check for all enemies in range and add them to the TargetQueue.
+    Capsule should then sort the enemies in the Queue by lowest Spawn Index to highest SpawnIndex.
+
+If TargetQueue == Last
+If TargetQueue == LowestHP
+If TargetQueue == HighestHP
+
