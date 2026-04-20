@@ -9,13 +9,20 @@ Last
 LowestHP
 HighestHP
 
+BEGIN
+Capsule should check for all enemies in range and add them to the TargetQueue.
 
 If TargetQueue ==  First
   If the player selects TargetPriority First
-    Capsule should check for all enemies in range and add them to the TargetQueue.
-    Capsule should then sort the enemies in the Queue by lowest Spawn Index to highest SpawnIndex.
+    Capsule should sort the enemies in the Queue by lowest Spawn Index to highest SpawnIndex.
 
 If TargetQueue == Last
+  If the player selects TargetPriority Last
+    Capsule should sort the enemies in the Queue by Highest Spawn Index to Lowest SpawnIndex.
+
 If TargetQueue == LowestHP
+  If the player selects TargetPriority LowestHP
+    Capsule should sort the enemies in the queue by largest health to smallest health.
+
 If TargetQueue == HighestHP
 
