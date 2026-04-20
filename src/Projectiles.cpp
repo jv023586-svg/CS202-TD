@@ -1,88 +1,81 @@
 #include "Projectiles.h"
+#include <cmath>
+#include <iostream>
 
-/*
-    // variables
-    sf::Vector2f position;
-    sf::Vector2f velocity;
-    float damage;
-    bool isActive;
-    Enemy* target;
-*/
-Projectile::Projectile()
-{
-    position = sf::Vector2f(0.f, 0.f);  // set position 0.f, 0.f is top left corner
-    velocity = sf::Vector2f(0.f, 0.f);  // set velocity, no current speed
-    damage = 0.f;                       // set damage
-    isActive = false;                   // set active state, false prevents accidental updates
-    target = NULL;                      // set target
+namespace {
+constexpr float kArriveEpsilon = 18.f;
 }
 
-void update(float dt)
-{
-// frame time
-// actual time dt is change in time
-
-    if (!isActive())  // check alive or not. Will return if active state isn't updated between creation and here
-    {
-        return; 
+Projectile::Projectile(sf::Vector2f from, sf::Vector2f to, float speedPixelsPerSecond, sf::Vector2f scale)
+    : start(from),
+      end(to),
+      position(from),
+      texture(),
+      sprite(texture),
+      visualScale(scale) {
+    const sf::Vector2f delta = to - from;
+    const float len = std::sqrt(delta.x * delta.x + delta.y * delta.y);
+    totalDistance = len;
+    if (len < 0.001f || speedPixelsPerSecond <= 0.f) {
+        active = false;
+        return;
     }
+    sf::Vector2f dir = delta / len;
+    velocity = dir * speedPixelsPerSecond;
 
-    // deactivate projectile if out of window
-    if (position.x < 0 || position.x > 800 ||  //change to window's max x
-        position.y < 0 || position.y > 600)    //change to window's max y
-    {
-        isActive = false;
+    if (!texture.loadFromFile("assets/textures/projectile.png")) {
+        std::cerr << "Failed to load projectile texture: assets/textures/projectile.png\n";
+        active = false;
         return;
     }
 
-    // direction to target
-    sf::Vector2f direction = target->getPosition() - position;
+    sprite.setTexture(texture, true);
+    // SFML may reset scale when the texture is bound; apply scale again after origin/rotation are set.
+    const auto bounds = sprite.getLocalBounds();
+    sprite.setOrigin({bounds.size.x * 0.5f, bounds.size.y * 0.5f});
+    sprite.setPosition(position);
+    aimSpriteAlongVelocity();
+    setVisualScale(visualScale);
+}
 
-    // Compute length (magnitude)
-    float length = sqrt(direction.x * direction.x + direction.y * direction.y);
+void Projectile::setVisualScale(const sf::Vector2f& newScale) {
+    visualScale = newScale;
+    sprite.setScale(visualScale);
+}
 
-    // Normalize projectile speed
-    if (length != 0.f)
-    {
-        direction /= length;
+void Projectile::aimSpriteAlongVelocity() {
+    const float rad = std::atan2(velocity.y, velocity.x);
+    sprite.setRotation(sf::radians(rad));
+}
+
+void Projectile::update(float dt) {
+    if (!active) {
+        return;
     }
-
-    float speed = 200.f; // units per second
-
-    // Update velocity toward target
-    velocity = direction * speed;
-
-    // update position--move projectile
     position += velocity * dt;
+    sprite.setPosition(position);
 
-    // take damage
-    if (target != NULL)
-    {
-        if (/* collision check with target */)
-        {
-            target->takeDamage(damage);
-            isActive = false;
-        }
-    }
-}
-
-void draw(sf::RenderWindow& window)
-{
-    if (!isActive())  // check alive or not. Will return if active state isn't updated between creation and here
-    {
+    const sf::Vector2f toEnd = end - position;
+    const float distEnd = std::sqrt(toEnd.x * toEnd.x + toEnd.y * toEnd.y);
+    if (distEnd < kArriveEpsilon) {
+        active = false;
         return;
     }
-
-    // draw circle (placeholder for sprite) and set position and color
-    sf::CircleShape shape(5.f); // radius = 5
-    shape.setPosition(position);
-    shape.setFillColor(sf::Color::Red);
-
-    window.draw(shape);
+    const sf::Vector2f traveled = position - start;
+    const float along = std::sqrt(traveled.x * traveled.x + traveled.y * traveled.y);
+    if (along >= totalDistance - kArriveEpsilon) {
+        active = false;
+    }
 }
 
-bool isAlive()
-{
-    return isActive;
+void Projectile::draw(sf::RenderWindow& window) {
+    if (!active) {
+        return;
+    }
+    sprite.setScale(visualScale);
+    window.draw(sprite);
 }
 
+bool Projectile::isActive() const {
+    return active;
+}

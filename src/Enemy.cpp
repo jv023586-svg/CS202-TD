@@ -1,42 +1,154 @@
 #include "Enemy.h"
-#include <iostream>
+#include "Capsule.h"
 #include <cmath>
+#include <iostream>
+
+namespace {
+/// SFML rects treat some edge-touching as non-overlapping; allow melee when gap between AABBs is within this (pixels).
+constexpr float kMeleeContactSlopPx = 8.f;
+
+/// Squared gap between two non-overlapping axis-aligned rects (0 if they overlap on both axes).
+float separationDistanceSquared(const sf::FloatRect& a, const sf::FloatRect& b) {
+    float dx = 0.f;
+    if (a.position.x + a.size.x <= b.position.x) {
+        dx = b.position.x - (a.position.x + a.size.x);
+    } else if (b.position.x + b.size.x <= a.position.x) {
+        dx = a.position.x - (b.position.x + b.size.x);
+    }
+    float dy = 0.f;
+    if (a.position.y + a.size.y <= b.position.y) {
+        dy = b.position.y - (a.position.y + a.size.y);
+    } else if (b.position.y + b.size.y <= a.position.y) {
+        dy = a.position.y - (b.position.y + b.size.y);
+    }
+    return dx * dx + dy * dy;
+}
+
+bool canMeleeCapsule(const sf::FloatRect& enemyBounds, const sf::FloatRect& capBounds) {
+    if (enemyBounds.findIntersection(capBounds).has_value()) {
+        return true;
+    }
+    return separationDistanceSquared(enemyBounds, capBounds) <= kMeleeContactSlopPx * kMeleeContactSlopPx;
+}
+} // namespace
 
 Enemy::Enemy()
     : health(100.0f),
       maxHealth(100.0f),
-      damage(10.0f),
+      attackCooldown(0.0f),
       attackRate(1.0f),
-      attackCooldown(1.0f),
-      speed(1.0f),
+      damage(10.0f),
       position(0.0f, 0.0f),
-      target(0.0f, 0.0f),
+      moveGoal(0.0f, 0.0f),
+      spawnIndex(-1),
+      speed(1.0f),
+      texture(),
       sprite(texture)
-{
+    {
+    // Load the enemy texture from the file
     if (!texture.loadFromFile("assets/textures/enemy.png")) {
         std::cerr << "Failed to load enemy texture assets/textures/enemy.png\n";
+    } else {
+        syncDrawablesAfterTextureLoad(); // sets origins, hitbox size, applies visualScale
     }
+}
 
+void Enemy::syncDrawablesAfterTextureLoad() {
     sprite.setTexture(texture, true);
-
-    // Center origin to visual center
-    const auto b = sprite.getLocalBounds();
-    sprite.setOrigin({b.size.x * 0.5f, b.size.y * 0.5f});
-
-    // 1920x1080p game window, center of the screen is 960x540
-    position = {960.f, 540.f};
+    const auto bounds = sprite.getLocalBounds();
+    const float hx = bounds.size.x * 0.5f;
+    const float hy = bounds.size.y * 0.5f;
+    sprite.setOrigin({hx, hy});
     sprite.setPosition(position);
+    enemyHitbox.setSize({bounds.size.x, bounds.size.y});
+    enemyHitbox.setOrigin({hx, hy});
+    enemyHitbox.setPosition(position);
+    enemyHitbox.setFillColor(sf::Color::Transparent);
+    enemyHitbox.setOutlineColor(sf::Color::Red);
+    enemyHitbox.setOutlineThickness(1.0f);
+    setVisualScale(visualScale);
+}
 
-    // Massive scale to see it appear on screen currently 
-    // Fix later TODO
-    sprite.setScale({8.0f, 8.0f});
+Enemy::Enemy(Enemy&& other) noexcept
+    : health(other.health),
+      maxHealth(other.maxHealth),
+      damage(other.damage),
+      attackRate(other.attackRate),
+      attackCooldown(other.attackCooldown),
+      speed(other.speed),
+      position(other.position),
+      moveGoal(other.moveGoal),
+      spawnIndex(other.spawnIndex),
+      texture(std::move(other.texture)),
+      sprite(std::move(other.sprite)),
+      enemyHitbox(std::move(other.enemyHitbox)),
+      visualScale(other.visualScale) {
+    // Re-bind after move; false keeps rect/origin from the moved sprite.
+    sprite.setTexture(texture, false);
+    sprite.setPosition(position);
+    enemyHitbox.setPosition(position);
+    setVisualScale(visualScale);
+}
+
+Enemy& Enemy::operator=(Enemy&& other) noexcept {
+    if (this == &other) {
+        return *this;
+    }
+    health = other.health;
+    maxHealth = other.maxHealth;
+    damage = other.damage;
+    attackRate = other.attackRate;
+    attackCooldown = other.attackCooldown;
+    speed = other.speed;
+    position = other.position;
+    moveGoal = other.moveGoal;
+    spawnIndex = other.spawnIndex;
+    texture = std::move(other.texture);
+    sprite = std::move(other.sprite);
+    enemyHitbox = std::move(other.enemyHitbox);
+    visualScale = other.visualScale;
+    sprite.setTexture(texture, false);
+    sprite.setPosition(position);
+    enemyHitbox.setPosition(position);
+    setVisualScale(visualScale);
+    return *this;
+}
+
+Enemy::Enemy(float health, float maxHealth, float damage, float attackRate, float attackCooldown, float speed, sf::Vector2f position, sf::Vector2f moveGoal, int spawnIndex)
+    : health(health),
+      maxHealth(maxHealth),
+      damage(damage),
+      attackRate(attackRate),
+      attackCooldown(attackCooldown),
+      speed(speed),
+      position(position),
+      moveGoal(moveGoal),
+      spawnIndex(spawnIndex),
+      texture(),
+      sprite(texture) {
+    if (!texture.loadFromFile("assets/textures/enemy.png")) {
+        std::cerr << "Failed to load enemy texture assets/textures/enemy.png\n";
+    } else {
+        syncDrawablesAfterTextureLoad();
+    }
+}
+
+void Enemy::setPosition(const sf::Vector2f& newPosition) {
+    position = newPosition;
+    sprite.setPosition(position);
+    enemyHitbox.setPosition(position);
 }
 
 // Update the enemy position in sprite as it moves towards capsule
 void Enemy::update(float dt)
 {
+    attackCooldown -= dt;
+    if (attackCooldown < 0.f) {
+        attackCooldown = 0.f;
+    }
+
     // Creates a vector pointing from enemy to capsule
-    sf::Vector2f dir = target - position;
+    sf::Vector2f dir = moveGoal - position;
     
     // Finds distance to target, vector magnitude
     float len = std::sqrt(dir.x * dir.x + dir.y * dir.y);
@@ -44,14 +156,15 @@ void Enemy::update(float dt)
         dir /= len;
         // Moves enemy in direction, constant velocity
         position += dir * speed * dt;
-        // Sync sprite to position
         sprite.setPosition(position);
+        enemyHitbox.setPosition(position);
     }
 }
 
 void Enemy::draw(sf::RenderWindow& window)
 {
     window.draw(sprite);
+    window.draw(enemyHitbox);
 }
 
 void Enemy::takeDamage(int amount)
@@ -68,6 +181,48 @@ bool Enemy::isAlive() const
     return health > 0;
 }
 
-void Enemy::attack()
-{
+void Enemy::tryMeleeAttack(Capsule& capsule) {
+    if (attackCooldown > 0.f) {
+        return;
+    }
+    if (!capsule.isAlive()) {
+        return;
+    }
+    const sf::FloatRect enemyBounds = getGlobalBounds();
+    const sf::FloatRect capBounds = capsule.getGlobalBounds();
+    if (!canMeleeCapsule(enemyBounds, capBounds)) {
+        return;
+    }
+    capsule.takeDamage(damage);
+    attackCooldown = attackRate;
+}
+
+void Enemy::setMoveGoal(const sf::Vector2f& goal) {
+    moveGoal = goal;
+}
+
+void Enemy::setSpawnIndex(int index) {
+    spawnIndex = index;
+}
+
+int Enemy::getSpawnIndex() const {
+    return spawnIndex;
+}
+
+sf::Vector2f Enemy::getPosition() const {
+    return position;
+}
+
+sf::FloatRect Enemy::getGlobalBounds() const {
+    return sprite.getGlobalBounds();
+}
+
+void Enemy::translate(const sf::Vector2f& delta) {
+    setPosition(position + delta);
+}
+
+void Enemy::setVisualScale(const sf::Vector2f& newScale) {
+    visualScale = newScale;
+    sprite.setScale(visualScale);
+    enemyHitbox.setScale(visualScale);
 }

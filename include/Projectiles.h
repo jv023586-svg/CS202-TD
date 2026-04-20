@@ -1,34 +1,33 @@
 #pragma once
 
-/*
-Projectile
-- position: sf::Vector2f
-- velocity: sf::Vector2f
-- damage : float
-- isActive : bool
-- target : Enemy*
-
-+ Projectile()
-+ update(dt:float):void
-+ draw(window):void
-+ isAlive():bool
-
-*/
-
 #include <SFML/Graphics.hpp>
-#include "Enemy.h"
 
+/// Cosmetic only: travels in a straight line from `from` toward fixed `to` (snapshot). Does not apply damage.
+/// Visual size is set only by the caller (see `kProjectileVisualScale` in Game.cpp).
 class Projectile {
 public:
-    Projectile();
+    Projectile(sf::Vector2f from, sf::Vector2f to, float speedPixelsPerSecond, sf::Vector2f visualScale);
+
+    Projectile(const Projectile&) = delete;
+    Projectile& operator=(const Projectile&) = delete;
+    Projectile(Projectile&&) noexcept = default;
+    Projectile& operator=(Projectile&&) noexcept = default;
+
     void update(float dt);
     void draw(sf::RenderWindow& window);
-    bool isAlive() const;
+    bool isActive() const;
+    void setVisualScale(const sf::Vector2f& newScale);
 
 private:
+    void aimSpriteAlongVelocity();
+
+    sf::Vector2f start;
+    sf::Vector2f end;
     sf::Vector2f position;
     sf::Vector2f velocity;
-    float damage;
-    bool isActive;
-    Enemy* target;
+    float totalDistance{0.f};
+    bool active{true};
+    sf::Texture texture;
+    sf::Sprite sprite;
+    sf::Vector2f visualScale;
 };

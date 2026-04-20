@@ -27,6 +27,7 @@ add_executable(main
     src/Enemy.cpp
     src/Turret.cpp
     src/Spawner.cpp
+    src/Projectiles.cpp
 )
 target_include_directories(main PRIVATE include)
 target_link_libraries(main PRIVATE SFML::Graphics)

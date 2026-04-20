@@ -1,11 +1,13 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <vector>
 #include "Enemy.h"
+#include "TargetPriority.h"
 
 class Capsule {
 public:
     Capsule(); // Constructor
-    Capsule(float health, float maxHealth, float energy, float maxEnergy, float rechargeRate, float attackCooldown, float attackRate, float attackRange, float damage, sf::Vector2f position, Enemy* target); // Constructor with parameters
+    Capsule(float health, float maxHealth, float energy, float maxEnergy, float rechargeRate, float attackCooldown, float attackRate, float attackRange, float damage, sf::Vector2f position, Enemy* initialAttackTarget); // Constructor with parameters
 
     void update(float dt); // Updates the position of the capsule
     void draw(sf::RenderWindow& window); // Draws the capsule to the screen
@@ -14,7 +16,21 @@ public:
     void setVisualScale(const sf::Vector2f& newScale);
     void takeDamage(float damage); // Takes damage from an enemy
     bool isFullyCharged() const; // Checks if the capsule is fully charged
-    void attack(); // Attacks an enemy
+    bool isAlive() const; // Checks if the capsule is alive
+    float getHealth() const;
+    float getEnergy() const;
+    /// Returns true if a shot was fired (damage applied). Used to spawn VFX only.
+    bool attack();
+    void setCapsuleEnergy(float energy);
+
+    /// Call each frame after building the list of enemies currently in attack range.
+    void resolveAttackTarget(const std::vector<Enemy*>& inRange, TargetPriority priority);
+    Enemy* getAttackTarget() const;
+    /// Call before removing dead enemies from the world if the current target may be destroyed.
+    void clearAttackTarget();
+    sf::Vector2f getPosition() const;
+    sf::FloatRect getGlobalBounds() const;
+    float getAttackRange() const;
 
 private:
     void syncDrawablesAfterTextureLoad(); // Sets origins, hitbox size, applies visualScale
@@ -28,8 +44,9 @@ private:
     float attackRate; // Rate at which the capsule attacks
     float attackRange; // Range of the capsule's attack
     float damage; // Damage of the capsule's attack
+
     sf::Vector2f position; // Position of the capsule
-    Enemy* target; // Target of the capsule's attack
+    Enemy* attackTarget; // Current ranged attack target (set by resolveAttackTarget)
     sf::Texture texture; // Capsule texture
     sf::Sprite sprite; // Capsule sprite
     sf::RectangleShape capsuleHitbox; // Debug AABB aligned to scaled sprite (same visualScale)
