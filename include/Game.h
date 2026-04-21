@@ -52,6 +52,7 @@ private:
     void processWinEvents(const sf::Event& event);
     void processLoseEvents(const sf::Event& event);
 
+    void resetPlayingState();
     void updateLoading(float dt);
     void updateMenu(float dt);
     void updateIntro(float dt);

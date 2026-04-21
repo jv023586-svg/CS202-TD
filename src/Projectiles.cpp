@@ -38,6 +38,42 @@ Projectile::Projectile(sf::Vector2f from, sf::Vector2f to, float speedPixelsPerS
     setVisualScale(visualScale);
 }
 
+Projectile::Projectile(Projectile&& other) noexcept
+    : start(other.start),
+      end(other.end),
+      position(other.position),
+      velocity(other.velocity),
+      totalDistance(other.totalDistance),
+      active(other.active),
+      texture(std::move(other.texture)),
+      sprite(std::move(other.sprite)),
+      visualScale(other.visualScale) {
+    sprite.setTexture(texture, false);
+    sprite.setPosition(position);
+    setVisualScale(visualScale);
+    aimSpriteAlongVelocity();
+}
+
+Projectile& Projectile::operator=(Projectile&& other) noexcept {
+    if (this == &other) {
+        return *this;
+    }
+    start = other.start;
+    end = other.end;
+    position = other.position;
+    velocity = other.velocity;
+    totalDistance = other.totalDistance;
+    active = other.active;
+    texture = std::move(other.texture);
+    sprite = std::move(other.sprite);
+    visualScale = other.visualScale;
+    sprite.setTexture(texture, false);
+    sprite.setPosition(position);
+    setVisualScale(visualScale);
+    aimSpriteAlongVelocity();
+    return *this;
+}
+
 void Projectile::setVisualScale(const sf::Vector2f& newScale) {
     visualScale = newScale;
     sprite.setScale(visualScale);

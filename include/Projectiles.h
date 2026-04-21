@@ -10,8 +10,8 @@ public:
 
     Projectile(const Projectile&) = delete;
     Projectile& operator=(const Projectile&) = delete;
-    Projectile(Projectile&&) noexcept = default;
-    Projectile& operator=(Projectile&&) noexcept = default;
+    Projectile(Projectile&& other) noexcept;
+    Projectile& operator=(Projectile&& other) noexcept;
 
     void update(float dt);
     void draw(sf::RenderWindow& window);
