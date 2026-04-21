@@ -1,5 +1,6 @@
 # CS202-TD
 Lab project for CS202. Tower Defense game.
+"We did this not because it is easy, but because we thought it would be easy."
 
 ## Requirements
 - CMake 3.22 or newer
