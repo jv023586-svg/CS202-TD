@@ -22,6 +22,7 @@ public:
     /// Returns true if a shot was fired (damage applied). Used to spawn VFX only.
     bool attack();
     void setCapsuleEnergy(float energy);
+    void setCapsuleHealth(float health);
 
     /// Call each frame after building the list of enemies currently in attack range.
     void resolveAttackTarget(const std::vector<Enemy*>& inRange, TargetPriority priority);

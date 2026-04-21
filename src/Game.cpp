@@ -123,7 +123,7 @@ Game::Game()
     introText(font),
     stateTimer(0.0f), // Example timer (useful for intro/loading screens)
     introTextY(0.0f), // Initial y position of the intro text
-    introScrollSpeed(30.0f),
+    introScrollSpeed(60.0f),
     introFadeTopFraction(0.25f),
     introFadeBottomFraction(0.75f),
     introBackgroundFadeAlpha(kAlphaMax), // Initial alpha value for the intro background fade overlay
@@ -200,7 +200,8 @@ void Game::processEvents() {
 }
 
 void Game::update(float dt) {// Updates the game state, such as the position of the objects
-    capsule.update(dt); // Updates the position of the capsule
+    // capsule.update(dt); // Updates the position of the capsule
+
     
     switch (currentState) {
         case GameState::LOADING:    updateLoading(dt); break;
@@ -260,17 +261,21 @@ void Game::processMenuEvents(const sf::Event& event) // Process the menu events
     }
 }
 
-void Game::updateMenu(float dt) { // Update the menu
+// Function to update the menu
+void Game::updateMenu(float dt) {
     (void)dt;
+    resetPlayingState();
 }
 
-void Game::renderMenu() { // Render the menu
+// Function to render the menu
+void Game::renderMenu() {
     debugText.setString("MENU\nPress ENTER to start\nPress ESCAPE to exit"); // Set the string of the debug text to the menu message    
     window.draw(debugText); // Draw the debug text
 }
 
 // ------- INTRO -------
-void Game::updateIntro(float dt) { // Update the intro
+// Function to update the intro
+void Game::updateIntro(float dt) {
     stateTimer += dt;
 
     // Simple timer-driven fade: fully black at t=0, fully clear at t=introBackgroundFadeSeconds.
@@ -281,7 +286,7 @@ void Game::updateIntro(float dt) { // Update the intro
     // Scroll start is explicitly timer-gated for easy tuning.
     if (stateTimer >= kIntroScrollStartSeconds) {
         introTextY -= introScrollSpeed * dt;
-        introText.setPosition({80.f, introTextY});
+        introText.setPosition({700.f, introTextY});
     }
     introText.setFillColor(sf::Color::White);
 
@@ -292,7 +297,8 @@ void Game::updateIntro(float dt) { // Update the intro
     }
 }
 
-void Game::renderIntro() { // Render the intro
+// Function to render the intro
+void Game::renderIntro() {
     window.draw(introText); // Draw intro while background overlay fades
     introFadeOverlay.setSize(sf::Vector2f(window.getSize())); // Set the size of the intro fade overlay to the size of the window
     introFadeOverlay.setFillColor(sf::Color(
@@ -304,8 +310,9 @@ void Game::renderIntro() { // Render the intro
     window.draw(introFadeOverlay); // Draw the intro fade overlay
 }
 
+// Function to process the intro events
 void Game::processIntroEvents(const sf::Event& event) {
-    // Process the intro events
+    // Process the intro events, skips the intro by pressing space or enter
     if (const auto* keyPressed = event.getIf<sf::Event::KeyPressed>()) { // If a key is pressed
         if (keyPressed->scancode == sf::Keyboard::Scancode::Space
             || keyPressed->scancode == sf::Keyboard::Scancode::Enter) {
@@ -318,8 +325,8 @@ void Game::processIntroEvents(const sf::Event& event) {
     }
 }
 
+// Function to reset the intro sequence
 void Game::resetIntroSequence() {
-    // Reset the intro sequence
     introBackgroundFadeAlpha = kAlphaMax; // Set the alpha of the intro background fade overlay to max
     introText.setString(introTextContent); // Set the string of the intro text to the intro text content    
     const float screenHeight = static_cast<float>(window.getSize().y); // Get the height of the window
@@ -328,6 +335,7 @@ void Game::resetIntroSequence() {
     introText.setFillColor(sf::Color::White); // Set the fill color of the intro text to white
 }
 
+// Function to load the background textures
 void Game::loadBackgroundTextures() {
     // Paths to the background textures
     static constexpr std::array<const char*, kBackgroundCount> paths = {
@@ -346,8 +354,8 @@ void Game::loadBackgroundTextures() {
     }
 }
 
+// Function to get the background ID for the given game state
 Game::BackgroundId Game::backgroundForState(GameState state) const {
-    // Return the background ID for the given game state
     switch (state) {
         case GameState::LOADING: return BackgroundId::LOADING;
         case GameState::MENU: return BackgroundId::MENU;
@@ -361,8 +369,8 @@ Game::BackgroundId Game::backgroundForState(GameState state) const {
     return BackgroundId::GAMEPLAY;
 }
 
+// Function to draw the background for the given game state
 void Game::drawBackgroundForState(GameState state) {
-    // Draw the background for the given game state
     const std::size_t index = static_cast<std::size_t>(backgroundForState(state)); // Get the index of the background texture
     if (index >= backgroundTextures.size() || !backgroundLoaded[index]) { // If the index is out of bounds or the background texture is not loaded, return
         return;
@@ -381,21 +389,23 @@ void Game::drawBackgroundForState(GameState state) {
     window.draw(backgroundSprite); // Draw the background sprite
 }
 
+// Function to load the intro text from file
 void Game::loadIntroTextFromFile() {
     std::ifstream file("assets/intro/intro.txt"); // Open the intro text file
     if (!file.is_open()) {
         introTextContent = "INTRO TEXT FILE NOT FOUND\n\nCreate assets/intro/intro.txt"; // If the intro text file is not found, set the intro text content to the default message
         return;
     }
-
+    
     std::ostringstream buffer;
     buffer << file.rdbuf();
     introTextContent = buffer.str();
 }
 
 // ------- TUTORIAL -------
+// Function to process the tutorial events
 void Game::processTutorialEvents(const sf::Event& event) {
-    // Process the tutorial events
+    // Process the tutorial events, continues to the playing state by pressing space
     if (event.is<sf::Event::KeyPressed>()) { // If a key is pressed
         if (const auto* keyPressed = event.getIf<sf::Event::KeyPressed>()) {
             if (keyPressed->scancode == sf::Keyboard::Scancode::Space) {
@@ -412,11 +422,13 @@ void Game::processTutorialEvents(const sf::Event& event) {
     }
 }
 
-void Game::updateTutorial(float dt) { // Update the tutorial
+// Function to update the tutorial
+void Game::updateTutorial(float dt) {
     (void)dt;
 }
 
-void Game::renderTutorial() { // Render the tutorial
+// Function to render the tutorial
+void Game::renderTutorial() {
     spawner.draw(window);
     capsule.draw(window); // Draw the capsule
     debugText.setString("TUTORIAL\nPress SPACE to continue"); // Set the string of the debug text to the tutorial message    
@@ -424,36 +436,38 @@ void Game::renderTutorial() { // Render the tutorial
 }
 
 // ------- PLAYING -------
+// Function to process the playing events
 void Game::processPlayingEvents(const sf::Event& event) {
     if (const auto* keyPressed = event.getIf<sf::Event::KeyPressed>()) { // If a key is pressed
-        if (keyPressed->scancode == sf::Keyboard::Scancode::W) {
+        if (keyPressed->scancode == sf::Keyboard::Scancode::W) { // If the w key is pressed
             currentState = GameState::WIN; // Set the current state to the win state
             stateTimer = 0.f; // Set the state timer to 0
         }
-        if (keyPressed->scancode == sf::Keyboard::Scancode::L) {
+        if (keyPressed->scancode == sf::Keyboard::Scancode::L) { // If the l key is pressed
             currentState = GameState::LOSE; // Set the current state to the lose state
             stateTimer = 0.f; // Set the state timer to 0
         }
-        if (keyPressed->scancode == sf::Keyboard::Scancode::P) {
+        if (keyPressed->scancode == sf::Keyboard::Scancode::P) { // If the p key is pressed
             targetPriority = (targetPriority == TargetPriority::Random) ? TargetPriority::First : TargetPriority::Random;
         }
     }
 }
 
-// updates every enemy on screen
-void Game::updatePlaying(float dt) { // Update the playing
+// Function to update the Playing state
+void Game::updatePlaying(float dt) {
+    capsule.update(dt);
     const sf::Vector2f capPos = capsule.getPosition();
 
-    for (auto& enemy : enemies) {
+    for (auto& enemy : enemies) { // for each enemy in the list of enemies
         enemy.setMoveGoal(capPos);
     }
-    for (auto& enemy : enemies) {
+    for (auto& enemy : enemies) { // for each enemy in the list of enemies
         enemy.update(dt);
     }
 
     spawner.update(dt);
-    while (spawner.shouldSpawn()) {
-        spawner.consumeSpawn();
+    while (spawner.shouldSpawn()) { // while the spawner should spawn
+        spawner.consumeSpawn(); 
         enemies.emplace_back(80.f, 80.f, 8.f, 1.f, 0.f, 120.f, spawner.getPosition(), capPos, nextSpawnIndex);
         ++nextSpawnIndex;
     }
@@ -466,9 +480,9 @@ void Game::updatePlaying(float dt) { // Update the playing
     }
 
     resolveEnemySeparations(enemies, capsule);
-
+/////// TargetQueue ///////
     std::vector<Enemy*> inCapsuleRange;
-    inCapsuleRange.reserve(enemies.size());
+    inCapsuleRange.reserve(enemies.size()); 
     const float capRange = capsule.getAttackRange();
     const float capRangeSq = capRange * capRange;
     for (auto& enemy : enemies) {
@@ -476,24 +490,25 @@ void Game::updatePlaying(float dt) { // Update the playing
             continue;
         }
         const sf::Vector2f d = enemy.getPosition() - capPos;
-        if (d.x * d.x + d.y * d.y <= capRangeSq) {
+        if (d.x * d.x + d.y * d.y <= capRangeSq) { // pythagorean distance calculation to check if the enemy is in range of the capsule
             inCapsuleRange.push_back(&enemy);
         }
     }
 
     capsule.resolveAttackTarget(inCapsuleRange, targetPriority);
 
+    // These next few lines are the actual attack code.
     Enemy* capTgt = capsule.getAttackTarget();
-    sf::Vector2f capsuleShotEnd{};
+    sf::Vector2f capsuleShotEnd{}; // end position of the capsule's attack, used for Projectiles.cpp
     if (capTgt != nullptr && capTgt->isAlive()) {
         capsuleShotEnd = capTgt->getPosition();
     }
-    if (capsule.attack()) {
+    if (capsule.attack()) { // if the capsule attacks
         projectiles.emplace_back(capsule.getPosition(), capsuleShotEnd, kProjectileSpeed,
-                                 sf::Vector2f{kProjectileVisualScale, kProjectileVisualScale});
+                                 sf::Vector2f{kProjectileVisualScale, kProjectileVisualScale}); // creates a projectile at the capsule's position and ends at the enemy's position
     }
-
-    turret.setAttackTarget(capsule.getAttackTarget());
+    // Sets the turret's attack target to the capsule's attack target. This is what would change if we wanted the turret to find its own target.
+    turret.setAttackTarget(capsule.getAttackTarget()); 
     turret.update(dt);
 
     Enemy* turTgt = turret.getAttackTarget();
@@ -524,9 +539,23 @@ void Game::updatePlaying(float dt) { // Update the playing
     if (!capsule.isAlive()) {
         currentState = GameState::LOSE;
         stateTimer = 0.f;
+        capsule.clearAttackTarget();
+        turret.setAttackTarget(nullptr);
+        enemies.clear();
+        projectiles.clear();
+        nextSpawnIndex = 0;
+        spawner.setPosition({1700.f, 300.f});
+        targetPriority = TargetPriority::Random;
     } else if (capsule.isFullyCharged()) {
         currentState = GameState::WIN;
         stateTimer = 0.f;
+        capsule.clearAttackTarget();
+        turret.setAttackTarget(nullptr);
+        enemies.clear();
+        projectiles.clear();
+        nextSpawnIndex = 0;
+        spawner.setPosition({1700.f, 300.f});
+        targetPriority = TargetPriority::Random;
     }
 }
 
@@ -557,7 +586,9 @@ void Game::renderPlaying() { // Render the playing
 }
 
 // ------- WIN -------
+// Function to process the win events
 void Game::processWinEvents(const sf::Event& event) {
+    // Process the win events, goes to the menu by pressing enter
     if (const auto* keyPressed = event.getIf<sf::Event::KeyPressed>()) { // If a key is pressed
         if (keyPressed->scancode == sf::Keyboard::Scancode::Enter) {
             currentState = GameState::MENU; // Set the current state to the menu state
@@ -569,16 +600,19 @@ void Game::processWinEvents(const sf::Event& event) {
     }
 }
 
-void Game::updateWin(float dt) { // Update the win
+// Function to update the win
+void Game::updateWin(float dt) {
     (void)dt;
 }
 
-void Game::renderWin() { // Render the win
+// Function to render the win
+void Game::renderWin() {
     debugText.setString("YOU WIN\nPress ENTER for main menu\nPress ESCAPE to quit");
     window.draw(debugText); // Draw the debug text
 }
 
 // ------- LOSE -------
+// Function to process the lose events
 void Game::processLoseEvents(const sf::Event& event) {
     if (const auto* keyPressed = event.getIf<sf::Event::KeyPressed>()) { // If a key is pressed
         if (keyPressed->scancode == sf::Keyboard::Scancode::Enter) {
@@ -591,11 +625,26 @@ void Game::processLoseEvents(const sf::Event& event) {
     }
 }
 
-void Game::updateLose(float dt) { // Update the lose
+// Function to update the lose
+void Game::updateLose(float dt) {
     (void)dt;
 }
 
-void Game::renderLose() { // Render the lose
+// Function to render the lose
+void Game::renderLose() {
     debugText.setString("YOU LOSE\nPress ENTER for main menu\nPress ESCAPE to quit"); 
     window.draw(debugText); // Draw the debug text
+}
+
+// Function to reset the playing state
+void Game::resetPlayingState() {
+    capsule.clearAttackTarget();
+    turret.setAttackTarget(nullptr);
+    enemies.clear();
+    projectiles.clear();
+    nextSpawnIndex = 0;
+    spawner.setPosition({1700.f, 300.f});
+    targetPriority = TargetPriority::Random;
+    capsule.setCapsuleEnergy(0.0f);
+    capsule.setCapsuleHealth(1000.0f);
 }
