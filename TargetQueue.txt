@@ -45,3 +45,13 @@ We are proceeding with a doubly linked list because we want to be able to traver
 
 It is worth noting that there is a vector of enemies that is built by the spawner and can be referenced for adding Enemies to the doubly linked List IF the enemy is in range. Each enemy also has a Unique identifier = spawnIndex.
 The FIRST target priority can be made by traversing the DLL in order, and the Last priority cal be made by traversing the DLL in reverse.
+
+Notes for implementation of TargetQueue:
+Game.cpp line 480. Creates a vector of Enemy* (pointers) called inCapsuleRange; I don't think we will need to do this but maybe we do.
+Line 481 expands the inCapsuleRange vector to accomodate all possible enemies.
+Line 482 creates a local variable to store the Capsule's range.
+Line 483 squares the capsule's range. This is used to avoid sqrt calculations when measuring distances.
+Lines 482 - 494 are a for loop, basically for every enemy in the enemies vector it does an Alive() check and then a pythagorean distance calculation to see if the enemy is in range of the capsule. If it is, it adds it to the inCapsuleRange vector mentioned above. I think we might keep all of this because it answers the question "what enemies are in range of the capsule". Then again, maybe we handle this differently to save us some checks.
+Line 494 calls resolveAttackTarget, which selects an enemy to target based off of the target priority and whether or not the enemy is in range.
+The function resolveAttackTarget is defined in Capsule.cpp, Line 91. This function will largely need to be rewritten or scrapped when we implement TargetQueue. We need to preserve the end of it at least, that's the random targeting. This function is on lines 91-140 of Capsule.cpp
+
