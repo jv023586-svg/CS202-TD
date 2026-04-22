@@ -67,7 +67,7 @@ void addEnemy(int spawnIndex)
 
 void removeEnemy(int spawnIndex, /* TYPE */ targetPriority)
 {
-    
+    void(spawnIndex, targetPriority);
 }
 
 void refreshTargetQueue()
