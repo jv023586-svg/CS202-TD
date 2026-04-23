@@ -3,6 +3,7 @@
 #include <iostream>
 #include <random>
 
+/////// Constructors ///////
 // Constructor with default parameters
 Capsule::Capsule()
     : health(1000.f), // current health of the capsule
@@ -50,7 +51,7 @@ Capsule::Capsule(float health, float maxHealth, float energy, float maxEnergy, f
     }
 }
 
-// Function to sync the drawables after the texture is loaded
+/////// Sync Functions ///////
 void Capsule::syncDrawablesAfterTextureLoad() {
     sprite.setTexture(texture, true);
     const auto bounds = sprite.getLocalBounds();
@@ -79,6 +80,12 @@ void Capsule::update(float dt) {
     if (attackCooldown < 0) {
         attackCooldown = 0;
     }
+}
+
+// Function to draw the Capsule to the screen
+void Capsule::draw(sf::RenderWindow& window) {
+    window.draw(sprite);
+    window.draw(capsuleHitbox);
 }
 
 // This function is used to resolve the attack target for the capsule.
@@ -140,66 +147,51 @@ void Capsule::resolveAttackTarget(const std::vector<Enemy*>& inRange, TargetPrio
     attackTarget = alive[dist(rng)]; // set the attack target to a random enemy in the list of alive enemies
 }
 
-// Function to get the attack target
-Enemy* Capsule::getAttackTarget() const {
-    return attackTarget;
-}
+/////// Getters ///////
 
-// Function to clear the attack target
-void Capsule::clearAttackTarget() {
-    attackTarget = nullptr;
+float Capsule::getHealth() const {
+    return health;
 }
-
-// Function to get the position of the Capsule
+float Capsule::getMaxHealth() const {
+    return maxHealth;
+}
+float Capsule::getEnergy() const {
+    return energy;
+}
+float Capsule::getMaxEnergy() const {
+    return maxEnergy;
+}
+float Capsule::getRechargeRate() const {
+    return rechargeRate;
+}
+float Capsule::getAttackRange() const {
+    return attackRange;
+}
+float Capsule::getAttackRate() const {
+    return attackRate;
+}
+float Capsule::getAttackCooldown() const {
+    return attackCooldown;
+}
+float Capsule::getAttackDamage() const {
+    return damage;
+}
 sf::Vector2f Capsule::getPosition() const {
     return position;
 }
-
-// Function to get the global bounds of the Capsule
 sf::FloatRect Capsule::getGlobalBounds() const {
     return sprite.getGlobalBounds();
 }
 
-// Function to get the attack range of the Capsule
-float Capsule::getAttackRange() const {
-    return attackRange;
+/////// Attack Functions ///////
+// Function to get the attack target
+Enemy* Capsule::getAttackTarget() const {
+    return attackTarget;
 }
-
-// Function to draw the Capsule to the screen
-void Capsule::draw(sf::RenderWindow& window) {
-    window.draw(sprite);
-    window.draw(capsuleHitbox);
+// Function to clear the attack target
+void Capsule::clearAttackTarget() {
+    attackTarget = nullptr;
 }
-
-// Function to set the position of the Capsule
-void Capsule::setPosition(const sf::Vector2f& newPosition) {
-    position = newPosition;
-    sprite.setPosition(position);
-    capsuleHitbox.setPosition(position);
-}
-
-// Function to set the visual scale of the Capsule
-void Capsule::setVisualScale(const sf::Vector2f& newScale) {
-    visualScale = newScale;
-    sprite.setScale(visualScale);
-    capsuleHitbox.setScale(visualScale);
-}
-
-// Function to check if the Capsule is alive
-bool Capsule::isAlive() const {
-    return health > 0;
-}
-
-// Function to get the health of the Capsule
-float Capsule::getHealth() const {
-    return health;
-}
-
-// Function to get the energy of the Capsule
-float Capsule::getEnergy() const {
-    return energy;
-}
-
 // Function to attack the target
 bool Capsule::attack() {
     if (attackCooldown > 0) {
@@ -216,12 +208,6 @@ bool Capsule::attack() {
     return true;
 }
 
-// Function to check if the Capsule is fully charged
-bool Capsule::isFullyCharged() const {
-    return energy >= maxEnergy;
-}
-
-// Function to take damage from an enemy
 void Capsule::takeDamage(float damage) {
     health -= damage;
     if (health < 0) {
@@ -229,12 +215,50 @@ void Capsule::takeDamage(float damage) {
     }
 }
 
-// Function to set the energy of the Capsule
+/////// Setters ///////
+
+void Capsule::setCapsuleHealth(float health) {
+    this->health = health;
+}
+void Capsule::setCapsuleMaxHealth(float maxHealth) {
+    this->maxHealth = maxHealth;
+}
 void Capsule::setCapsuleEnergy(float energy) {
     this->energy = energy;
 }
+void Capsule::setCapsuleMaxEnergy(float maxEnergy) {
+    this->maxEnergy = maxEnergy;
+}
+void Capsule::setCapsuleRechargeRate(float rechargeRate) {
+    this->rechargeRate = rechargeRate;
+}
+void Capsule::setCapsuleAttackCooldown(float attackCooldown) {
+    this->attackCooldown = attackCooldown;
+}
+void Capsule::setCapsuleAttackRate(float attackRate) {
+    this->attackRate = attackRate;
+}
+void Capsule::setCapsuleAttackRange(float attackRange) {
+    this->attackRange = attackRange;
+}
+void Capsule::setCapsuleDamage(float damage) {
+    this->damage = damage;
+}
+void Capsule::setCapsulePosition(const sf::Vector2f& position) {
+    this->position = position;
+    sprite.setPosition(position);
+    capsuleHitbox.setPosition(position);
+}
+void Capsule::setCapsuleVisualScale(const sf::Vector2f& visualScale) {
+    this->visualScale = visualScale;
+    sprite.setScale(visualScale);
+    capsuleHitbox.setScale(visualScale);
+}
 
-// Function to set the health of the Capsule
-void Capsule::setCapsuleHealth(float health) {
-    this->health = health;
+///////Other Functions ///////
+bool Capsule::isAlive() const {
+    return health > 0;
+}
+bool Capsule::isFullyCharged() const {
+    return energy >= maxEnergy;
 }
