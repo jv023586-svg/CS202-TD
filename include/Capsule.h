@@ -11,27 +11,45 @@ public:
 
     void update(float dt); // Updates the position of the capsule
     void draw(sf::RenderWindow& window); // Draws the capsule to the screen
-    void setPosition(const sf::Vector2f& newPosition); // Sets position and sprite position
-    /// Single source of truth: scales both the sprite and the debug hitbox together.
-    void setVisualScale(const sf::Vector2f& newScale);
-    void takeDamage(float damage); // Takes damage from an enemy
-    bool isFullyCharged() const; // Checks if the capsule is fully charged
-    bool isAlive() const; // Checks if the capsule is alive
-    float getHealth() const;
-    float getEnergy() const;
-    /// Returns true if a shot was fired (damage applied). Used to spawn VFX only.
-    bool attack();
-    void setCapsuleEnergy(float energy);
-    void setCapsuleHealth(float health);
 
-    /// Call each frame after building the list of enemies currently in attack range.
+    
+    
+    /////// Attack Functions ///////
+    bool attack();
     void resolveAttackTarget(const std::vector<Enemy*>& inRange, TargetPriority priority);
     Enemy* getAttackTarget() const;
-    /// Call before removing dead enemies from the world if the current target may be destroyed.
     void clearAttackTarget();
+    void takeDamage(float damage); // Takes damage from an enemy
+    
+    /////// Getters ///////
+    float getHealth() const;
+    float getMaxHealth() const;
+    float getEnergy() const;
+    float getMaxEnergy() const;
+    float getRechargeRate() const;
+    float getAttackRange() const;
+    float getAttackCooldown() const;
+    float getAttackRate() const;
+    float getAttackDamage() const;
     sf::Vector2f getPosition() const;
     sf::FloatRect getGlobalBounds() const;
-    float getAttackRange() const;
+
+    /////// Setters ///////
+    void setCapsuleHealth(float health);
+    void setCapsuleMaxHealth(float maxHealth);
+    void setCapsuleEnergy(float energy);
+    void setCapsuleMaxEnergy(float maxEnergy);
+    void setCapsuleRechargeRate(float rechargeRate);
+    void setCapsuleAttackCooldown(float attackCooldown);
+    void setCapsuleAttackRate(float attackRate);
+    void setCapsuleAttackRange(float attackRange);
+    void setCapsuleAttackDamage(float attackDamage);
+    void setCapsulePosition(const sf::Vector2f& position);
+    void setCapsuleVisualScale(const sf::Vector2f& visualScale);
+    
+    /////// Other Functions ///////
+    bool isAlive() const; // Checks if the capsule is alive 
+    bool isFullyCharged() const; // Checks if the capsule is fully charged
 
 private:
     void syncDrawablesAfterTextureLoad(); // Sets origins, hitbox size, applies visualScale

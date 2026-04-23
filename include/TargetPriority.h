@@ -1,3 +1,10 @@
+#pragma once
+
+/// How Capsule (and Turret, via shared target) picks among enemies in range.
+enum class TargetPriority {
+    Random, ///< Pick uniformly among valid targets (chaotic demo).
+    First   ///< Lowest spawn index first (ordered demo; TargetQueue can back this later).
+};
 /*
 add()
   search
@@ -9,7 +16,7 @@ Node constructor()
   tail
   data
 rangecheck()
-*/
+
 
 const float capRange = capsule.getAttackRange();
 const float capRangeSq = capRange * capRange;
@@ -17,13 +24,13 @@ const float capRangeSq = capRange * capRange;
 //It should take as arguments targetPriority and should return a pointer to an enemy.
 //If targetPriority == Oldest, return the enemy that HEAD points to
 //If targetPriority == Newest, return the enemy that tail points to
-Enemy* getAttackTarget(/* TYPE */ targetPriority)
+Enemy* getAttackTarget( TYPE  targetPriority)
 {
-    if (/* targetPriority == Oldest */)
+    if ( targetPriority == Oldest )
     {
         return targetQueue.front();
     } 
-    else if(/* targetPriority == Newest */)
+    else if(targetPriority == Newest )
     {
         return targetQueue.back();
     } 
@@ -34,7 +41,7 @@ Enemy* getAttackTarget(/* TYPE */ targetPriority)
 
 }
 
-bool rangeCheck(Enemy* enemy /* absolute position */)
+bool rangeCheck(Enemy* enemy  absolute position )
 {
     const sf::Vector2f d = enemy.getPosition() - capPos;
     if (d.x * d.x + d.y * d.y <= capRangeSq) 
@@ -65,7 +72,7 @@ void addEnemy(int spawnIndex)
     targetQueue.push_back(spawnIndex);
 }
 
-void removeEnemy(int spawnIndex, /* TYPE */ targetPriority)
+void removeEnemy(int spawnIndex, TYPE targetPriority)
 {
     
 }
@@ -87,3 +94,4 @@ void refreshTargetQueue()
 }
 
 
+*/
