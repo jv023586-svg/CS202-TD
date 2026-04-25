@@ -448,7 +448,7 @@ void Game::processPlayingEvents(const sf::Event& event) {
             stateTimer = 0.f; // Set the state timer to 0
         }
         if (keyPressed->scancode == sf::Keyboard::Scancode::P) { // If the p key is pressed
-            targetPriority = (targetPriority == TargetPriority::Random) ? TargetPriority::First : TargetPriority::Random;
+            targetPriority = (targetPriority == TargetPriority::Oldest) ? TargetPriority::Newest : TargetPriority::Oldest;
         }
     }
 }

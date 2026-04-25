@@ -1,8 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "BackgroundId.h"
-
-class Game;
+#include "NewGame.h"
 
 class State {
 public:

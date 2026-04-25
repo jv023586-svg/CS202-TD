@@ -11,7 +11,7 @@ constexpr float kMeleeContactSlopPx = 8.f;
 Enemy::Enemy()
     : health(100.0f),
       maxHealth(100.0f),
-      attackCooldown(0.0f),
+      attackCooldown(8.0f),
       attackRate(1.0f),
       damage(10.0f),
       position(0.0f, 0.0f),

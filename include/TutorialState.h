@@ -1,5 +1,8 @@
 #pragma once
 #include "State.h"
+#include "Capsule.h"
+#include "Spawner.h"
+#include "Enemy.h"
 
 class TutorialState : public State {
 public:
@@ -15,12 +18,18 @@ public:
     BackgroundId getBackgroundId() const override;
 
 private:
+    Capsule capsule;
+    Spawner spawner;
+    Enemy enemy;
+
     sf::Text TitleText;
     sf::Text CapsuleText;
     sf::Text SpawnerText;
     sf::Text HealthText;
     sf::Text EnergyText;
     sf::Text EnemyText;
+
+    float stateTimer;
 
     void displayTitleText();
     void displayCapsuleText();
