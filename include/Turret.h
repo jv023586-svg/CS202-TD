@@ -15,6 +15,7 @@ public:
     bool isFullyCharged();
     void setAttackTarget(Enemy* enemy);
     void setPosition(const sf::Vector2f& p);
+    void setTurretVisualScale(const sf::Vector2f& scale);
     sf::Vector2f getPosition() const;
     float getAttackRange() const;
     Enemy* getAttackTarget() const;
@@ -22,7 +23,10 @@ public:
     bool attack();
 
 private:
+    void syncDrawable();
+
     sf::Vector2f position;
+    sf::Vector2f visualScale{1.f, 1.f};
     float attackRange;
     float damage;
     float attackRate;
@@ -33,4 +37,6 @@ private:
     float health;
     float maxHealth;
     Enemy* attackTarget;
+    sf::Texture texture;
+    sf::Sprite sprite;
 };

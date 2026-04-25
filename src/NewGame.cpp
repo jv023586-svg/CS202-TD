@@ -7,7 +7,7 @@
 #include <iostream>
 #include <array>
 
-Game::Game()
+NewGame::NewGame()
 : window(sf::VideoMode({1920, 1080}), "Game")
 {
     window.setFramerateLimit(60);
@@ -20,7 +20,9 @@ Game::Game()
     changeState(std::make_unique<LoadingState>(*this)); 
 }
 
-void Game::run()
+NewGame::~NewGame() = default;
+
+void NewGame::run()
 {
     sf::Clock clock;
 
@@ -34,24 +36,24 @@ void Game::run()
 }
 
 // Function to change the current state via a unique pointer to the new state
-void Game::changeState(std::unique_ptr<State> newState)
+void NewGame::changeState(std::unique_ptr<State> newState)
 {
     if (currentState) currentState->onExit();
     currentState = std::move(newState);
     if (currentState) currentState->onEnter();
 }
 
-sf::RenderWindow& Game::getWindow()
+sf::RenderWindow& NewGame::getWindow()
 {
     return window;
 }
 
-sf::Font& Game::getFont()
+sf::Font& NewGame::getFont()
 {
     return font;
 }
 
-void Game::handleEvents()
+void NewGame::handleEvents()
 {
     while (const std::optional event = window.pollEvent()) {
         if (event->is<sf::Event::Closed>()) {
@@ -64,14 +66,14 @@ void Game::handleEvents()
     }
 }
 
-void Game::update(float dt)
+void NewGame::update(float dt)
 {
     if (currentState) {
         currentState->update(dt);
     }
 }
 
-void Game::render()
+void NewGame::render()
 {
     window.clear();
     if (currentState) {
@@ -81,14 +83,13 @@ void Game::render()
     window.display();
 }
 
-void Game::drawBackgroundForState(BackgroundId backgroundId)
+void NewGame::drawBackgroundForState(BackgroundId backgroundId)
 {
     const std::size_t index = static_cast<std::size_t>(backgroundId);
 
     if (index >= backgroundTextures.size() || !backgroundLoaded[index]) return;
 
-    sf::Sprite backgroundSprite;
-    backgroundSprite.setTexture(backgroundTextures[index]);
+    sf::Sprite backgroundSprite(backgroundTextures[index]);
 
     const auto textureSize = backgroundTextures[index].getSize();
     if (textureSize.x == 0 || textureSize.y == 0) return;
@@ -101,7 +102,7 @@ void Game::drawBackgroundForState(BackgroundId backgroundId)
     window.draw(backgroundSprite);
 }
 
-void Game::loadBackgroundTextures()
+void NewGame::loadBackgroundTextures()
 {
     static constexpr std::array<const char*, kBackgroundCount> paths = {
         "assets/backgrounds/loading.png",

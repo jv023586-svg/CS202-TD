@@ -38,6 +38,7 @@ bool Spawner::shouldSpawn() const {
     return timer >= spawnInterval;
 }
 
+//
 void Spawner::consumeSpawn() {
     timer -= spawnInterval;
     if (timer < 0.0f) {

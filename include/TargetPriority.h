@@ -1,10 +1,19 @@
 #pragma once
 
+#include <iostream>
+#include <list>
+
 /// How Capsule (and Turret, via shared target) picks among enemies in range.
 enum class TargetPriority {
-    Random, ///< Pick uniformly among valid targets (chaotic demo).
-    First   ///< Lowest spawn index first (ordered demo; TargetQueue can back this later).
+    Oldest,
+    Newest   ///< Lowest spawn index first (ordered demo; TargetQueue can back this later).
 };
+/*
+Class TargetList {
+
+
+-----------------------------------------------------------
+
 /*
 add()
   search
@@ -93,5 +102,9 @@ void refreshTargetQueue()
     }
 }
 
-
+enemies.front();
+Enemy* getTarget(priority targetPriority) {
+    if (priority == Oldest) return enemies.front();
+    if (priority -- Newest) return enemies.back();
+}
 */

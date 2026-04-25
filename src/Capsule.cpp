@@ -65,7 +65,7 @@ void Capsule::syncDrawablesAfterTextureLoad() {
     capsuleHitbox.setFillColor(sf::Color::Transparent);
     capsuleHitbox.setOutlineColor(sf::Color::Red);
     capsuleHitbox.setOutlineThickness(10.f);
-    setVisualScale(visualScale);
+    setCapsuleVisualScale(visualScale);
 }
 
 // Function to update the capsule
@@ -109,42 +109,11 @@ void Capsule::resolveAttackTarget(const std::vector<Enemy*>& inRange, TargetPrio
         return; // return and do nothing
     }
 
-    if (priority == TargetPriority::First) { // if the priority is first
-        Enemy* best = alive[0]; // set the best enemy to the first enemy in the list of alive enemies
-        int bestKey = best->getSpawnIndex(); // get the spawn index of the best enemy
-        if (bestKey < 0) { // if the spawn index is less than 0
-            bestKey = INT_MAX; // set the best key to the maximum integer value
-        }
-        for (std::size_t i = 1; i < alive.size(); ++i) { // for each enemy in the list of alive enemies
-            Enemy* e = alive[i]; // set the enemy to the current enemy in the list of alive enemies
-            int k = e->getSpawnIndex(); // get the spawn index of the current enemy
-            if (k < 0) { // if the spawn index is less than 0
-                k = INT_MAX; // set the spawn index to the maximum integer value
-            }
-            if (k < bestKey) { // if the spawn index of the current enemy is less than the spawn index of the best enemy
-                bestKey = k; // set the best key to the spawn index of the current enemy
-                best = e; // set the best enemy to the current enemy
-            }
-        }
-        attackTarget = best; // set the attack target to the best enemy
-        return; // return and do nothing
+    if (priority == TargetPriority::Oldest) {
+        attackTarget = alive.front();
+        return;
     }
-
-    auto stillIn = [&](Enemy* t) { // lambda function to check if the enemy is in the list of alive enemies
-        for (Enemy* e : alive) { // for each enemy in the list of alive enemies
-            if (e == t) {
-                return true; // return true if the enemy is in the list of alive enemies
-            }
-        }
-        return false; // return false if the enemy is not in the list of alive enemies
-    };
-    if (attackTarget && attackTarget->isAlive() && stillIn(attackTarget)) { // if the attack target is not nullptr and the attack target is alive and the attack target is in the list of alive enemies
-        return; // return and do nothing
-    }
-
-    static thread_local std::mt19937 rng(std::random_device{}()); // create a random number generator
-    std::uniform_int_distribution<std::size_t> dist(0, alive.size() - 1); // create a uniform distribution for the size of the list of alive enemies
-    attackTarget = alive[dist(rng)]; // set the attack target to a random enemy in the list of alive enemies
+    attackTarget = alive.back();
 }
 
 /////// Getters ///////
@@ -187,6 +156,10 @@ sf::FloatRect Capsule::getGlobalBounds() const {
 // Function to get the attack target
 Enemy* Capsule::getAttackTarget() const {
     return attackTarget;
+}
+// Function to set the attack target directly
+void Capsule::setAttackTarget(Enemy* target) {
+    attackTarget = target;
 }
 // Function to clear the attack target
 void Capsule::clearAttackTarget() {
@@ -241,7 +214,7 @@ void Capsule::setCapsuleAttackRate(float attackRate) {
 void Capsule::setCapsuleAttackRange(float attackRange) {
     this->attackRange = attackRange;
 }
-void Capsule::setCapsuleDamage(float damage) {
+void Capsule::setCapsuleAttackDamage(float damage) {
     this->damage = damage;
 }
 void Capsule::setCapsulePosition(const sf::Vector2f& position) {

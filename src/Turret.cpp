@@ -1,21 +1,31 @@
 #include "Turret.h"
+#include <iostream>
 
 Turret::Turret()
     : position({900.f, 750.f}),
-      attackRange(75.f),
-      damage(10.f),
-      attackRate(1.2f),
-      attackCooldown(0.f),
+      attackRange(475.f),
+      damage(100.f),
+      attackRate(0.2f),
+      attackCooldown(1.f),
       energy(100.f),
       maxEnergy(100.f),
       rechargeRate(15.f),
       health(100.f),
       maxHealth(100.f),
-      attackTarget(nullptr) {}
+      attackTarget(nullptr),
+      texture(),
+      sprite(texture)
+{
+    if (!texture.loadFromFile("assets/textures/turret.png")) {
+        std::cerr << "Failed to load turret texture: assets/textures/turret.png\n";
+    }
+    syncDrawable();
+}
 
 Turret::Turret(float health, float maxHealth, float energy, float maxEnergy, float rechargeRate, float attackCooldown,
                float attackRate, float attackRange, float damage, sf::Vector2f position, Enemy* attackTarget)
     : position(position),
+      visualScale({1.f, 1.f}),
       attackRange(attackRange),
       damage(damage),
       attackRate(attackRate),
@@ -25,7 +35,15 @@ Turret::Turret(float health, float maxHealth, float energy, float maxEnergy, flo
       rechargeRate(rechargeRate),
       health(health),
       maxHealth(maxHealth),
-      attackTarget(attackTarget) {}
+      attackTarget(attackTarget),
+      texture(),
+      sprite(texture)
+{
+    if (!texture.loadFromFile("assets/textures/turret.png")) {
+        std::cerr << "Failed to load turret texture: assets/textures/turret.png\n";
+    }
+    syncDrawable();
+}
 
 void Turret::update(float dt) {
     energy += rechargeRate * dt;
@@ -39,7 +57,9 @@ void Turret::update(float dt) {
     }
 }
 
-void Turret::draw(sf::RenderWindow&) {}
+void Turret::draw(sf::RenderWindow& window) {
+    window.draw(sprite);
+}
 
 void Turret::takeDamage(float amount) {
     health -= amount;
@@ -62,6 +82,12 @@ void Turret::setAttackTarget(Enemy* enemy) {
 
 void Turret::setPosition(const sf::Vector2f& p) {
     position = p;
+    sprite.setPosition(position);
+}
+
+void Turret::setTurretVisualScale(const sf::Vector2f& scale) {
+    visualScale = scale;
+    sprite.setScale(visualScale);
 }
 
 sf::Vector2f Turret::getPosition() const {
@@ -91,4 +117,12 @@ bool Turret::attack() {
     attackTarget->takeDamage(static_cast<int>(damage));
     attackCooldown = attackRate;
     return true;
+}
+
+void Turret::syncDrawable() {
+    sprite.setTexture(texture, true);
+    const auto bounds = sprite.getLocalBounds();
+    sprite.setOrigin({bounds.size.x * 0.5f, bounds.size.y * 0.5f});
+    sprite.setPosition(position);
+    sprite.setScale(visualScale);
 }

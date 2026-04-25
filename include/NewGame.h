@@ -6,9 +6,10 @@
 
 class State;
 
-class Game {
+class NewGame {
 public:
-    Game();
+    NewGame();
+    ~NewGame();
     void run();
 
     void changeState(std::unique_ptr<State> newState);
@@ -33,3 +34,5 @@ private:
     std::array<sf::Texture, kBackgroundCount> backgroundTextures;
     std::array<bool, kBackgroundCount> backgroundLoaded{};
 };
+
+using Game = NewGame;

@@ -18,6 +18,7 @@ public:
     bool attack();
     void resolveAttackTarget(const std::vector<Enemy*>& inRange, TargetPriority priority);
     Enemy* getAttackTarget() const;
+    void setAttackTarget(Enemy* target);
     void clearAttackTarget();
     void takeDamage(float damage); // Takes damage from an enemy
     

@@ -12,9 +12,16 @@ constexpr float kAlphaMax = 25.f;
 constexpr float kIntroScrollStartSeconds = 0.0f;
 }
 IntroState::IntroState(Game& game)
-: State(game), stateTimer(0.0f), introTextY(0.0f), introScrollSpeed(60.0f), introBackgroundFadeAlpha(kAlphaMax), introBackgroundFadeSeconds(0.01f), introFadeOverlay(), introTextContent(""){
-
-    introText.setFont(game.getFont());
+: State(game),
+  introText(game.getFont()),
+  stateTimer(0.0f),
+  introTextY(0.0f),
+  introScrollSpeed(60.0f),
+  introBackgroundFadeAlpha(kAlphaMax),
+  introBackgroundFadeSeconds(0.01f),
+  introFadeOverlay(),
+  introTextContent("")
+{
     introText.setCharacterSize(36);
     introText.setFillColor(sf::Color::White);
 }

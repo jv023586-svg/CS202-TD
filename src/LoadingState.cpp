@@ -5,9 +5,8 @@
 #include <memory>
 
 LoadingState::LoadingState(Game& game)
-: State(game), stateTimer(0.f)
+: State(game), text(game.getFont()), stateTimer(0.f)
 {
-    text.setFont(game.getFont());
     text.setCharacterSize(32);
     text.setFillColor(sf::Color::White);
     text.setString("Loading...");

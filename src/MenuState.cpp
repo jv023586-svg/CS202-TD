@@ -4,9 +4,8 @@
 #include <memory>
 
 MenuState::MenuState(Game& game)
-: State(game)
+: State(game), text(game.getFont())
 {
-    text.setFont(game.getFont());
     text.setCharacterSize(32);
     text.setFillColor(sf::Color::White);
     text.setString("MENU\nPress ENTER to start\nPress ESCAPE to exit");

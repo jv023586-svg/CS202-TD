@@ -22,12 +22,19 @@ FetchContent_MakeAvailable(SFML)
 
 add_executable(main
     src/main.cpp
-    src/Game.cpp
+    src/NewGame.cpp
     src/Capsule.cpp
     src/Enemy.cpp
     src/Turret.cpp
     src/Spawner.cpp
     src/Projectiles.cpp
+    src/LoadingState.cpp
+    src/MenuState.cpp
+    src/IntroState.cpp
+    src/TutorialState.cpp
+    src/PlayingState.cpp
+    src/WinState.cpp
+    src/LoseState.cpp
 )
 target_include_directories(main PRIVATE include)
 target_link_libraries(main PRIVATE SFML::Graphics)
