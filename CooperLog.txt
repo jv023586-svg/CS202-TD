@@ -9,4 +9,8 @@
 
 4/15/2026
 +2 Hours: Fixing Enemy.cpp so it appears during game state, team meeting to debug so the program
-          works on all of our machines. 
+          works on all of our machines. Team meeting to work on project
+
+ 4/20/26
+ +1 Hour: Team meeting to discuss queue implementation, develop game plan for queue, and progress update
+
