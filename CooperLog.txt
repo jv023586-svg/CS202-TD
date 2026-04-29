@@ -1,16 +1,31 @@
 4/9/2026
-+2 Hours: Developing Enemy.h skeleton for later polishing
++2 Hours: Developed the bare bones Enemy.h skeleton that I will later polish. This would help me
+          make the implementation easier later on. 
 
 4/10/2026
-+1 Hour: Developing Enemy.h functions and other helpers to be used in implementation
++1 Hour:  Developed and altered Enemy.h functions and other helpers to be used in implementation.
+          The current Enemy.h was insufficient and needed a rework to meet project demands. 
 
 4/14/2026
-+2 Hours: Implementing Enemy.cpp bare bones, prototypes for functions that will be filled out later
++2 Hours: Began implementing Enemy.cpp bare bones skeleton after Enemy.h was completed.
+          Also began creating the prototypes for functions that will be filled out later. This helped
+          me visualize functions and what data would be relevant to them when I began programming them.
 
 4/15/2026
-+2 Hours: Fixing Enemy.cpp so it appears during game state, team meeting to debug so the program
-          works on all of our machines. Team meeting to work on project
++2 Hours: Started fixing Enemy.cpp to get a very basic implementation. My main goal was to make it appear 
+          during the game state. Our team meeting this day mainly focused on debugging the program so that
+          it works on all of our machine's operating system. We got it functioning on Linux, MacOS, and Windows.
 
  4/20/26
- +1 Hour: Team meeting to discuss queue implementation, develop game plan for queue, and progress update
++1 Hour:  The group got together for a team meeting to discuss queue implementation for the in range enemies. 
+          We settled on a plan to use a queue as the data structure and began to develop the game around this.
 
+4/22/26
++2 Hours: Team meeting about refactoring the game's playing states and using a different data structure
+          to approach our enemy queue. We settled on a linked list from the stl as we could pop from
+          either end with little time complexity.
+
+4/29/26
++2 Hours: Team meeting to finalzie report and prepare for presentation before submission. We went in depth
+          about what next steps would be if we continued, what went well, what went wrong, and how we would          
+          approach the project with all knowledge we currently have now.
