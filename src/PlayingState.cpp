@@ -104,20 +104,20 @@ void PlayingState::update(float dt)
                                 spawner.getPosition(), capPos, nextSpawnIndex);
         ++nextSpawnIndex;
     }
-    for (auto& e : TargetList) {
+    for (auto& e : TargetList) { // For every enemy in the TargetList, update their destination
         e.setMoveGoal(capPos);
     }
-    for (auto& e : TargetList) {
+    for (auto& e : TargetList) { // update every enemy in the TargetList
         e.update(dt);
     }
 
     // Melee while AABBs can overlap; separation below removes overlap so this must run first.
-    for (auto& e : TargetList) {
+    for (auto& e : TargetList) { // Check to see if an enemy in TargetList can melle the capsule
         if (e.isAlive()) {
             e.tryMeleeAttack(capsule);
         }
     }
-
+    // Function call to select a target from the list.
     Enemy* selectedTarget = selectTargetFromTargetList();
     capsule.setAttackTarget(selectedTarget);
     if (capsule.attack() && selectedTarget != nullptr) {
