@@ -1,0 +1,27 @@
+What went well?
+-	Group collaboration in digital environments, learning how to utilize GitHub, and making a Discord server for group organization. Meeting often and good communication through utilizing GitHub and Discord allowed us to discuss what data structure would work best for our project. We eventually came to a consensus through our collaboration on the best implementation step we could take. 
+
+What went less well?
+-	Trying to make even a simple game using SMFL was a mistake. It was thought that SMFL and PyGame were equivalent in ease of use, and because of this, a lot of time was spent on building out the program instead of focusing on the data structure itself.
+
+What we learned?
+-	In the process of implementing physics, collisions, and other aspects of the game not related to the data structure, we turned to AI to navigate these matters more efficiently. This ended up being an exercise in learning the limitations of AI models.
+-	Being able to brainstorm and determine which data structure best fits our use case, helped us to think critically about the problem and weigh the pros and cons. This type of critical thinking and analysis will be valuable in future. 
+
+Why you should get full points?
+-	There is no question that we went above and beyond the scope and expectations of this project to visually represent our data structure at work. In doing so, we achieved a greater degree of collaboration, research, learning, and work which were required to complete the program, rather than starting over with something new.
+
+Our Data Structure: 
+We are including the lines of code here that relate to our data structure, as there is a lot to sift through to find it and the location of our implementation is not immediately obvious. We implemented the TargetList as a doubly linked list. The DLL is implemented in PlayingState.cpp on lines:
+
+●	355-386,
+●	158,
+●	121,
+●	107-119.
+PlayingState.cpp is located in the src folder within the root directory
+
+References:
+https://www.geeksforgeeks.org/cpp/doubly-linked-list-in-cpp/
+https://www.geeksforgeeks.org/cpp/list-cpp-stl/
+https://en.cppreference.com/cpp/container/list
+https://www.geeksforgeeks.org/dsa/doubly-linked-list-tutorial/
