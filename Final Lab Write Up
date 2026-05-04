@@ -2,14 +2,14 @@ What went well?
 -	Group collaboration in digital environments, learning how to utilize GitHub, and making a Discord server for group organization. Meeting often and good communication through utilizing GitHub and Discord allowed us to discuss what data structure would work best for our project. We eventually came to a consensus through our collaboration on the best implementation step we could take. 
 
 What went less well?
--	Trying to make even a simple game using SMFL was a mistake. It was thought that SMFL and PyGame were equivalent in ease of use, and because of this, a lot of time was spent on building out the program instead of focusing on the data structure itself.
+-	Trying to make even a simple game using SMFL was a mistake. It was thought that SMFL and PyGame were equivalent in ease of use, and because of this, a lot of time was spent on building out the program instead of focusing on the data structure itself. "We did this not because it was easy, but because we THOUGHT it would be easy."
 
 What we learned?
 -	In the process of implementing physics, collisions, and other aspects of the game not related to the data structure, we turned to AI to navigate these matters more efficiently. This ended up being an exercise in learning the limitations of AI models.
 -	Being able to brainstorm and determine which data structure best fits our use case, helped us to think critically about the problem and weigh the pros and cons. This type of critical thinking and analysis will be valuable in future. 
 
 Why you should get full points?
--	There is no question that we went above and beyond the scope and expectations of this project to visually represent our data structure at work. In doing so, we achieved a greater degree of collaboration, research, learning, and work which were required to complete the program, rather than starting over with something new.
+-	There is no question that we went above and beyond the scope and expectations of this project to visually represent our data structure at work. In doing so, we achieved a greater degree of collaboration, research, learning, and work which were required to complete the program, rather than starting over with something new. We worked very hard to find the data structure that would best fit our use-case. We almost went with a heap but decided against it do to the variability of targets being destroyed as well as foreseeing future issues when more turrets are implemented. Our DLL iterates forward to find the Oldest enemy and iterates in reverse to find the Newest enemy. New enemies are always pushed to the back, to preserve sorting, and destroyed enemnies are deleted from the DLL following a search based on the selected targeting scheme. In other words, if an enemy is destroyed, and the current Target Priority is Oldest, the search will begin at the front and make its way backwards. In this way, search is potentially reduced from O(n) worst case to O(1) best case, and the best case is most likely. The search is necessary for an edge case, a situation where the target priority is changed in the split second between an enemy being destroyed and the enemy being deleted from the DLL. We also chose a DLL because the data does not have to be resized continuously like an array or vector would. The number of elements in the DLL varies wildly and cannot be determined before runtime. 
 
 Our Data Structure: 
 We are including the lines of code here that relate to our data structure, as there is a lot to sift through to find it and the location of our implementation is not immediately obvious. We implemented the TargetList as a doubly linked list. The DLL is implemented in PlayingState.cpp on lines:
@@ -19,6 +19,9 @@ We are including the lines of code here that relate to our data structure, as th
 ●	121,
 ●	107-119.
 PlayingState.cpp is located in the src folder within the root directory
+
+GitHub Repo:
+https://github.com/jv023586-svg/CS202-TD
 
 References:
 https://www.geeksforgeeks.org/cpp/doubly-linked-list-in-cpp/
